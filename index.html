@@ -29,8 +29,8 @@
   .header-top { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
   h1 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--accent); letter-spacing: 2px; }
   .week-badge { background: var(--accent); color: #000; font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; }
-  nav { display: flex; gap: 2px; }
-  nav button { background: none; border: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 8px 8px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.3px; }
+  nav { display: flex; gap: 0; overflow: hidden; }
+  nav button { background: none; border: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 8px 2px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.2px; flex: 1; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   nav button.nav-A { color: var(--accent); border-bottom-color: var(--accent); }
   nav button.nav-B { color: var(--accent2); border-bottom-color: var(--accent2); }
   nav button.nav-cardio { color: var(--accent-cardio); border-bottom-color: var(--accent-cardio); }
@@ -75,29 +75,25 @@
   .add-set-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 
-  /* HEATMAP */
-  .heatmap-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #ff6b9d; margin-bottom: 4px; }
-  .heatmap-year-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 10px; }
-  .heatmap-grid-wrap { overflow-x: auto; padding-bottom: 8px; }
-  .heatmap-grid { display: flex; gap: 3px; }
-  .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
-  .heatmap-month-labels { display: flex; gap: 3px; margin-bottom: 4px; padding-left: 24px; }
-  .heatmap-month-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; }
-  .heatmap-day-labels { display: flex; flex-direction: column; gap: 3px; margin-right: 4px; padding-top: 0; }
-  .heatmap-day-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--muted); height: 11px; line-height: 11px; }
-  .heatmap-cell { width: 11px; height: 11px; border-radius: 2px; cursor: pointer; transition: transform 0.1s; flex-shrink: 0; }
-  .heatmap-cell:hover { transform: scale(1.4); }
-  .heatmap-cell.empty { background: #1e1e1e; }
-  .heatmap-cell.type-A { background: #c8ff00; }
-  .heatmap-cell.type-B { background: #4daaff; }
-  .heatmap-cell.type-CARDIO { background: #ff9f1c; }
-  .heatmap-cell.type-AB { background: #b388ff; }
-  .heatmap-cell.type-MULTI { background: #ff6b9d; }
-  .heatmap-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
-  .heatmap-legend-item { display: flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); }
-  .heatmap-legend-dot { width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
-  .heatmap-stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 20px; }
-  .heatmap-tooltip { position: fixed; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 6px; padding: 8px 12px; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text); z-index: 300; pointer-events: none; display: none; max-width: 180px; line-height: 1.5; }
+  /* REGULARITE */
+  .reg-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #ff6b9d; margin-bottom: 4px; }
+  .reg-counters { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+  .reg-counter { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; display: flex; align-items: center; justify-content: space-between; }
+  .reg-counter-left { display: flex; flex-direction: column; gap: 4px; }
+  .reg-counter-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .reg-counter-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #444; }
+  .reg-counter-val { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; line-height: 1; }
+  .reg-counter-A { border-left: 3px solid var(--accent); }
+  .reg-counter-A .reg-counter-val { color: var(--accent); }
+  .reg-counter-B { border-left: 3px solid var(--accent2); }
+  .reg-counter-B .reg-counter-val { color: var(--accent2); }
+  .reg-counter-C { border-left: 3px solid var(--accent-cardio); }
+  .reg-counter-C .reg-counter-val { color: var(--accent-cardio); }
+  .reg-bar-wrap { width: 120px; background: #1e1e1e; border-radius: 4px; height: 5px; overflow: hidden; }
+  .reg-bar-fill { height: 100%; border-radius: 4px; }
+  .reg-total-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .reg-total-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .reg-total-val { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: #ff6b9d; line-height: 1; }
 
   /* EXPORT REMINDER */
   .export-reminder { display:none; position:fixed; bottom:80px; left:16px; right:16px; background:#1e1e1e; border:1px solid var(--accent); border-radius:10px; padding:14px 16px; z-index:150; box-shadow:0 4px 24px rgba(0,0,0,0.5); }
@@ -309,7 +305,9 @@
     <button class="activity-btn" onclick="selectActivity('run',this)"><span class="act-icon">🏃</span>Run</button>
     <button class="activity-btn" onclick="selectActivity('rameur',this)"><span class="act-icon">🚣</span>Rameur</button>
     <button class="activity-btn" onclick="selectActivity('echobike',this)"><span class="act-icon">💨</span>Echo Bike</button>
+    <button class="activity-btn" onclick="selectActivity('skierg',this)"><span class="act-icon">⛷️</span>SkiErg</button>
     <button class="activity-btn" onclick="selectActivity('velo',this)"><span class="act-icon">🚴</span>Vélo salle</button>
+    <button class="activity-btn" onclick="selectActivity('veloext',this)"><span class="act-icon">🚵</span>Vélo ext.</button>
   </div>
   <div class="cardio-form" id="cardio-form">
     <div class="cardio-field" id="field-distance" style="display:none">
@@ -357,35 +355,13 @@
   <div id="logbook-container"></div>
 </div>
 
-<!-- HEATMAP -->
+<!-- REGULARITE -->
 <div class="page" id="page-heatmap">
-  <div class="heatmap-title">RÉGULARITÉ</div>
+  <div class="reg-title">RÉGULARITÉ</div>
   <div class="session-sub">12 derniers mois</div>
-  <div class="heatmap-year-label" id="heatmap-year-label"></div>
-  <div class="heatmap-grid-wrap">
-    <div style="display:flex">
-      <div class="heatmap-day-labels">
-        <div class="heatmap-day-label">L</div>
-        <div class="heatmap-day-label"></div>
-        <div class="heatmap-day-label">M</div>
-        <div class="heatmap-day-label"></div>
-        <div class="heatmap-day-label">V</div>
-        <div class="heatmap-day-label"></div>
-        <div class="heatmap-day-label">D</div>
-      </div>
-      <div id="heatmap-grid" class="heatmap-grid"></div>
-    </div>
-  </div>
-  <div class="heatmap-legend">
-    <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#c8ff00"></div>Séance A</div>
-    <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#4daaff"></div>Séance B</div>
-    <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#ff9f1c"></div>Cardio</div>
-    <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#b388ff"></div>Muscu + Cardio</div>
-    <div class="heatmap-legend-item"><div class="heatmap-legend-dot" style="background:#1e1e1e; border:1px solid #2a2a2a"></div>Repos</div>
-  </div>
-  <div class="heatmap-stats-row" id="heatmap-stats"></div>
+  <div class="reg-counters" id="reg-counters"></div>
+  <div class="reg-total-box" id="reg-total"></div>
 </div>
-<div class="heatmap-tooltip" id="heatmap-tooltip"></div>
 
 <!-- STATS -->
 <div class="page" id="page-stats">
@@ -462,7 +438,7 @@ const PROGRAMME = {
   ]
 };
 
-const ACT_LABELS = { run:'🏃 Run', rameur:'🚣 Rameur', echobike:'💨 Echo Bike', velo:'🚴 Vélo salle' };
+const ACT_LABELS = { run:'🏃 Run', rameur:'🚣 Rameur', echobike:'💨 Echo Bike', skierg:'⛷️ SkiErg', velo:'🚴 Vélo salle', veloext:'🚵 Vélo ext.' };
 
 // --- Render sessions ---
 function getLastPerf(sess, exName, blocType) {
@@ -585,9 +561,9 @@ function selectActivity(act, btn) {
   document.querySelectorAll('.activity-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   document.getElementById('cardio-form').classList.add('show');
-  const isRun = act === 'run';
-  document.getElementById('field-distance').style.display = isRun ? 'block' : 'none';
-  document.getElementById('duree-label').textContent = isRun ? 'Durée totale' : 'Durée de travail';
+  const hasDistance = act === 'run' || act === 'veloext';
+  document.getElementById('field-distance').style.display = hasDistance ? 'block' : 'none';
+  document.getElementById('duree-label').textContent = hasDistance ? 'Durée totale' : 'Durée de travail';
 }
 
 function saveCardio() {
@@ -1032,115 +1008,42 @@ function renderVolume() {
   });
 }
 
-// --- Heatmap ---
+// --- Régularité ---
 function renderHeatmap() {
   const log = getLog();
-  const grid = document.getElementById('heatmap-grid');
-  const statsRow = document.getElementById('heatmap-stats');
-  const tooltip = document.getElementById('heatmap-tooltip');
-  grid.innerHTML = '';
+  const since = new Date();
+  since.setFullYear(since.getFullYear() - 1);
+  since.setHours(0, 0, 0, 0);
 
-  // Construire map date -> types
-  const dateMap = {};
-  log.forEach(e => {
-    const d = new Date(e.dateISO);
-    const key = d.toISOString().split('T')[0];
-    if (!dateMap[key]) dateMap[key] = new Set();
-    dateMap[key].add(e.session);
-  });
+  const recent = log.filter(e => new Date(e.dateISO) >= since);
+  const countA     = recent.filter(e => e.session === 'A').length;
+  const countB     = recent.filter(e => e.session === 'B').length;
+  const countCardio = recent.filter(e => e.session === 'CARDIO').length;
+  const total = countA + countB + countCardio;
 
-  // 52 semaines en arrière depuis aujourd'hui
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  // Aller au lundi de la semaine courante
-  const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
-  const endMonday = new Date(today);
-  endMonday.setDate(today.getDate() - dayOfWeek + 6); // dimanche de cette semaine
+  const maxVal = Math.max(countA, countB, countCardio, 1);
 
-  const startDate = new Date(endMonday);
-  startDate.setDate(endMonday.getDate() - 52 * 7 + 1);
-  // Reculer au lundi
-  const startDay = startDate.getDay() === 0 ? 6 : startDate.getDay() - 1;
-  startDate.setDate(startDate.getDate() - startDay);
+  const items = [
+    { cls: 'reg-counter-A',  label: 'Séance A',  sub: 'Squat · Bench · Row',         val: countA,      color: '#c8ff00' },
+    { cls: 'reg-counter-B',  label: 'Séance B',  sub: 'Deadlift · OHP · Pull-ups',    val: countB,      color: '#4daaff' },
+    { cls: 'reg-counter-C',  label: 'Cardio',    sub: 'Run · Rameur · Echo Bike',      val: countCardio, color: '#ff9f1c' },
+  ];
 
-  // Générer colonnes (semaines)
-  let current = new Date(startDate);
-  let totalSessions = 0, totalCardio = 0, streak = 0, tempStreak = 0;
+  document.getElementById('reg-counters').innerHTML = items.map(it => `
+    <div class="reg-counter ${it.cls}">
+      <div class="reg-counter-left">
+        <div class="reg-counter-label">${it.label}</div>
+        <div class="reg-counter-sub">${it.sub}</div>
+        <div style="margin-top:10px">
+          <div class="reg-bar-wrap"><div class="reg-bar-fill" style="width:${Math.round(it.val/maxVal*100)}%;background:${it.color}"></div></div>
+        </div>
+      </div>
+      <div class="reg-counter-val">${it.val}</div>
+    </div>`).join('');
 
-  const columns = [];
-  while (current <= endMonday) {
-    const col = [];
-    for (let d = 0; d < 7; d++) {
-      col.push(new Date(current));
-      current.setDate(current.getDate() + 1);
-    }
-    columns.push(col);
-  }
-
-  columns.forEach(col => {
-    const colDiv = document.createElement('div');
-    colDiv.className = 'heatmap-col';
-    col.forEach(day => {
-      const cell = document.createElement('div');
-      cell.className = 'heatmap-cell';
-      const key = day.toISOString().split('T')[0];
-      const isFuture = day > today;
-      if (isFuture) {
-        cell.style.background = 'transparent';
-      } else {
-        const sessions = dateMap[key];
-        if (!sessions) {
-          cell.classList.add('empty');
-          tempStreak = 0;
-        } else {
-          totalSessions += sessions.size;
-          if (sessions.has('CARDIO')) totalCardio++;
-          tempStreak++;
-          streak = Math.max(streak, tempStreak);
-          const hasMuscu = sessions.has('A') || sessions.has('B');
-          const hasCardio = sessions.has('CARDIO');
-          if (hasMuscu && hasCardio) cell.classList.add('type-MULTI');
-          else if (sessions.has('A') && sessions.has('B')) cell.classList.add('type-AB');
-          else if (sessions.has('A')) cell.classList.add('type-A');
-          else if (sessions.has('B')) cell.classList.add('type-B');
-          else if (hasCardio) cell.classList.add('type-CARDIO');
-          // Tooltip
-          const dateStr = day.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
-          const types = [...sessions].map(s => s === 'CARDIO' ? 'Cardio' : 'Séance ' + s).join(' + ');
-          cell.addEventListener('mouseover', e => {
-            tooltip.innerHTML = `<b>${dateStr}</b><br>${types}`;
-            tooltip.style.display = 'block';
-          });
-          cell.addEventListener('mousemove', e => {
-            tooltip.style.left = (e.clientX + 12) + 'px';
-            tooltip.style.top = (e.clientY - 30) + 'px';
-          });
-          cell.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
-        }
-      }
-      colDiv.appendChild(cell);
-    });
-    grid.appendChild(colDiv);
-  });
-
-  // Stats
-  const now = new Date();
-  const thisWeekSessions = log.filter(e => {
-    const d = new Date(e.dateISO); d.setHours(0,0,0,0);
-    const mon = new Date(now); mon.setDate(now.getDate() - (now.getDay()===0?6:now.getDay()-1)); mon.setHours(0,0,0,0);
-    return d >= mon;
-  }).length;
-
-  statsRow.innerHTML = `
-    <div class="stat-box"><div class="stat-val" style="color:#ff6b9d">${totalSessions}</div><div class="stat-label">Total séances</div></div>
-    <div class="stat-box"><div class="stat-val" style="color:#ff6b9d">${thisWeekSessions}</div><div class="stat-label">Cette semaine</div></div>
-    <div class="stat-box"><div class="stat-val" style="color:#ff6b9d">${streak}</div><div class="stat-label">Meilleure série</div></div>
-  `;
-
-  // Label année
-  const y1 = startDate.getFullYear();
-  const y2 = today.getFullYear();
-  document.getElementById('heatmap-year-label').textContent = y1 === y2 ? y1 : `${y1} — ${y2}`;
+  document.getElementById('reg-total').innerHTML = `
+    <div class="reg-total-label">Total séances<br><span style="color:#333;font-size:0.6rem">12 derniers mois</span></div>
+    <div class="reg-total-val">${total}</div>`;
 }
 
 // --- Chrono ---
