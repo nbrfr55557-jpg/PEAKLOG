@@ -5,10 +5,10 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="FITNESS TRACKER">
+<meta name="apple-mobile-web-app-title" content="PEAKLOG">
 <meta name="theme-color" content="#0d0d0d">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FITNESS TRACKER</title>
+<title>PEAKLOG</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -98,8 +98,8 @@
   .chrono-start.stop { background: #ff4d4d; color: #fff; }
   .chrono-preset { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); }
 
-  .comment-input { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; padding: 7px 10px; width: 100%; margin-top: 8px; transition: border-color 0.15s, color 0.15s; }
-  .comment-input::placeholder { color: #3a3a3a; }
+  .comment-input { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; padding: 7px 10px; width: 100%; margin-top: 8px; transition: border-color 0.15s, color 0.15s; text-transform: uppercase; }
+  .comment-input::placeholder { color: #3a3a3a; text-transform: none; }
   .comment-input:focus { outline: none; color: var(--text); }
 
   .session-actions { margin-top: 24px; display: flex; gap: 12px; }
@@ -129,9 +129,10 @@
   .cardio-form.show { display: block; }
   .cardio-field { margin-bottom: 14px; }
   .cardio-field label { display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .cardio-field input, .cardio-field textarea { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 1rem; padding: 10px 14px; width: 100%; transition: border-color 0.15s; }
-  .cardio-field textarea { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; resize: none; height: 60px; color: var(--muted); }
-  .cardio-field textarea::placeholder { color: #3a3a3a; }
+  .cardio-field input, .cardio-field textarea { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 1rem; padding: 10px 14px; width: 100%; transition: border-color 0.15s; -moz-appearance: textfield; }
+  .cardio-field input::-webkit-outer-spin-button, .cardio-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .cardio-field textarea { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; resize: none; height: 60px; color: var(--muted); text-transform: uppercase; }
+  .cardio-field textarea::placeholder { color: #3a3a3a; text-transform: none; }
   .cardio-field input:focus, .cardio-field textarea:focus { outline: none; border-color: var(--accent-cardio); color: var(--text); }
   .input-unit { display: flex; align-items: center; }
   .input-unit input { border-radius: 6px 0 0 6px; }
@@ -184,6 +185,29 @@
 
   /* STATS */
   .stats-page-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #b388ff; margin-bottom: 4px; }
+  .rm-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
+  .rm-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 8px; text-align: center; }
+  .rm-card.is-pr { border-color: #b388ff; background: rgba(179,136,255,0.06); }
+  .rm-card-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .rm-card-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--text); line-height: 1; }
+  .rm-card.is-pr .rm-card-val { color: #b388ff; }
+  .rm-card-sub { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); margin-top: 2px; }
+  .rm-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.78rem; margin-top: 4px; }
+  .rm-table th { color: var(--muted); font-weight: 400; text-align: left; padding: 5px 8px; font-size: 0.65rem; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  .rm-table td { padding: 6px 8px; border-bottom: 1px solid #1a1a1a; color: var(--text); }
+  .rm-table tr:last-child td { border-bottom: none; }
+  .rm-table tr.pr-row td { color: #b388ff; }
+  .rm-table .rm-date { color: var(--muted); font-size: 0.68rem; }
+
+  /* TOGGLE PDC */
+  .pdc-toggle-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+  .pdc-toggle-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; }
+  .toggle-switch { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 22px; cursor: pointer; transition: 0.2s; }
+  .toggle-slider:before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: var(--muted); border-radius: 50%; transition: 0.2s; }
+  .toggle-switch input:checked + .toggle-slider { background: var(--accent2); }
+  .toggle-switch input:checked + .toggle-slider:before { transform: translateX(16px); background: #fff; }
   .stat-select { background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 10px 14px; width: 100%; appearance: none; -webkit-appearance: none; cursor: pointer; margin-bottom: 12px; }
   .stat-select:focus { outline: none; border-color: #b388ff; }
   .chart-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-top: 8px; }
@@ -225,12 +249,12 @@
   .settings-section-title.C { color: var(--accent3); }
 
   .sess-name-row { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; }
-  .sess-name-input { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; padding: 8px 12px; flex: 1; }
+  .sess-name-input { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1px; padding: 8px 12px; flex: 1; text-transform: uppercase; }
   .sess-name-input:focus { outline: none; border-color: var(--accent); }
   .sess-name-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
 
-  .ex-config-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; position: relative; }
-  .ex-config-name { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 8px 12px; width: 100%; margin-bottom: 10px; }
+  .ex-config-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .ex-config-name { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 8px 12px; width: 100%; text-transform: uppercase; }
   .ex-config-name:focus { outline: none; border-color: var(--accent); }
   .ex-config-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
   .ex-config-field { display: flex; flex-direction: column; gap: 4px; }
@@ -238,8 +262,9 @@
   .ex-config-input { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 0.85rem; padding: 6px 8px; text-align: center; width: 100%; -moz-appearance: textfield; }
   .ex-config-input::-webkit-outer-spin-button, .ex-config-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .ex-config-input:focus { outline: none; border-color: var(--accent); }
-  .ex-delete-btn { position: absolute; top: 10px; right: 12px; background: none; border: none; color: #333; cursor: pointer; font-size: 1rem; padding: 2px 6px; transition: color 0.15s; }
+  .ex-delete-btn { background: none; border: none; color: #333; cursor: pointer; font-size: 1rem; padding: 4px 6px; transition: color 0.15s; line-height: 1; flex-shrink: 0; }
   .ex-delete-btn:hover { color: #ff4d4d; }
+  .ex-name-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .add-ex-btn { background: none; border: 1px dashed var(--border); border-radius: 6px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.75rem; padding: 10px; width: 100%; cursor: pointer; text-transform: uppercase; transition: all 0.15s; margin-top: 4px; }
   .add-ex-btn:hover { border-color: var(--accent); color: var(--accent); }
   .save-settings-btn { background: var(--accent); color: #000; border: none; border-radius: 6px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 1.5px; padding: 14px; width: 100%; cursor: pointer; margin-top: 8px; transition: opacity 0.15s; }
@@ -256,15 +281,42 @@
   .export-pdf-btn { background: var(--accent); color: #000; border: none; border-radius: 6px; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 1.5px; padding: 12px; width: 100%; cursor: pointer; transition: opacity 0.15s; margin-top: 4px; }
   .export-pdf-btn:hover { opacity: 0.9; }
 
-  /* EXPORT REMINDER */
-  .export-reminder { display:none; position:fixed; bottom:80px; left:16px; right:16px; background:#1e1e1e; border:1px solid var(--accent); border-radius:10px; padding:14px 16px; z-index:150; box-shadow:0 4px 24px rgba(0,0,0,0.5); }
-  .export-reminder.show { display:block; animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+  /* CROSSFIT */
+  .cf-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .cf-title { font-family:'Bebas Neue',sans-serif; font-size:2rem; color:#ff4d4d; letter-spacing:2px; }
+  .cf-unit-toggle { display:flex; align-items:center; gap:4px; }
+  .cf-unit-label { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); text-transform:uppercase; }
+  .cf-tabs { display:flex; gap:0; margin-bottom:16px; border-bottom:1px solid var(--border); }
+  .cf-tab { background:none; border:none; color:var(--muted); font-family:'DM Mono',monospace; font-size:0.7rem; padding:8px 14px; cursor:pointer; border-bottom:2px solid transparent; text-transform:uppercase; transition:all 0.15s; }
+  .cf-tab.active { color:#ff4d4d; border-bottom-color:#ff4d4d; }
+  .wod-card { background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:10px; overflow:hidden; }
+  .wod-header { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; user-select:none; }
+  .wod-name { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:#ff4d4d; letter-spacing:1px; }
+  .wod-type { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--muted); text-transform:uppercase; margin-top:2px; }
+  .wod-pr { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--accent); }
+  .wod-toggle { font-size:1rem; color:var(--muted); transition:transform 0.2s; }
+  .wod-card.open .wod-toggle { transform:rotate(180deg); }
+  .wod-body { display:none; padding:0 16px 16px; border-top:1px solid var(--border); }
+  .wod-card.open .wod-body { display:block; }
+  .wod-desc { font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--text); line-height:1.7; margin:12px 0 10px; white-space:pre-line; }
+  .wod-standards { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px; }
+  .wod-std-box { background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 10px; }
+  .wod-std-label { font-family:'DM Mono',monospace; font-size:0.6rem; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+  .wod-std-val { font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--text); line-height:1.6; }
+  .wod-log-btn { background:#ff4d4d; color:#fff; border:none; border-radius:6px; font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:1px; padding:10px; width:100%; cursor:pointer; transition:opacity 0.15s; margin-bottom:10px; }
+  .wod-log-btn:hover { opacity:0.85; }
+  .wod-scores { margin-top:4px; }
+  .wod-score-item { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1a1a1a; }
+  .wod-score-item:last-child { border-bottom:none; }
+  .wod-score-val { font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--text); }
+  .wod-score-val.is-pr { color:var(--accent); }
+  .wod-score-meta { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--muted); text-align:right; }
+  .wod-score-rx { font-family:'DM Mono',monospace; font-size:0.6rem; padding:2px 6px; border-radius:3px; background:rgba(200,255,0,0.1); color:var(--accent); margin-top:2px; display:inline-block; }
+  .wod-score-scaled { font-family:'DM Mono',monospace; font-size:0.6rem; padding:2px 6px; border-radius:3px; background:rgba(100,100,100,0.2); color:var(--muted); margin-top:2px; display:inline-block; }
+  .wod-no-scores { font-family:'DM Mono',monospace; font-size:0.72rem; color:#333; text-align:center; padding:12px 0; }
+
   @keyframes slideUp { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
-  .export-reminder-title { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--accent); letter-spacing:1px; margin-bottom:4px; }
-  .export-reminder-text { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); margin-bottom:10px; line-height:1.5; }
-  .export-reminder-actions { display:flex; gap:8px; }
-  .export-reminder-actions .btn-primary { font-size:0.85rem; padding:8px 16px; flex:1; }
-  .export-reminder-actions .btn-secondary { font-size:0.75rem; padding:8px 12px; }
+
 
   /* TOAST / MODAL */
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--accent); color: #000; font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 500; padding: 10px 20px; border-radius: 6px; z-index: 999; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; white-space: nowrap; }
@@ -283,7 +335,7 @@
 
 <header>
   <div class="header-top">
-    <h1>FITNESS TRACKER</h1>
+    <h1>PEAKLOG</h1>
     <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1px;align-self:flex-end;padding-bottom:3px">v1.2.0</span>
   </div>
   <nav id="main-nav"></nav>
@@ -316,28 +368,36 @@
     <button class="activity-btn" onclick="selectActivity('trail',this)"><span class="act-icon">⛰️</span>Trail / Rando</button>
     <button class="activity-btn" onclick="selectActivity('corde',this)"><span class="act-icon">🪢</span>Corde à sauter</button>
   </div>
-  <div class="cardio-form" id="cardio-form">
-    <div class="cardio-field" id="field-distance" style="display:none">
-      <label>Distance</label>
+</div>
+
+<!-- MODALE CARDIO -->
+<div class="modal-overlay" id="cardio-modal">
+  <div class="modal" style="max-width:340px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+      <span id="cardio-modal-icon" style="font-size:1.8rem;line-height:1"></span>
+      <h3 id="cardio-modal-title" style="margin-bottom:0">ACTIVITÉ</h3>
+    </div>
+    <div id="cardio-modal-field-distance" style="display:none;margin-bottom:12px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Distance</div>
       <div class="input-unit">
-        <input type="number" inputmode="decimal" step="0.1" min="0" id="cardio-distance" placeholder="0.0">
+        <input type="text" inputmode="decimal" id="cardio-distance" placeholder="0.0" style="background:var(--surface);border:1px solid var(--border);border-radius:6px 0 0 6px;color:var(--text);font-family:'DM Mono',monospace;font-size:1rem;padding:10px 14px;width:100%;-moz-appearance:textfield;outline:none" onfocus="this.style.borderColor='var(--accent-cardio)'" onblur="this.style.borderColor='var(--border)'">
         <span class="unit-label">km</span>
       </div>
     </div>
-    <div class="cardio-field">
-      <label id="duree-label">Durée de travail</label>
+    <div style="margin-bottom:12px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px" id="cardio-modal-duree-label">Durée de travail</div>
       <div class="input-unit">
-        <input type="number" inputmode="numeric" min="0" id="cardio-duree" placeholder="0">
+        <input type="text" inputmode="numeric" id="cardio-duree" placeholder="0" style="background:var(--surface);border:1px solid var(--border);border-radius:6px 0 0 6px;color:var(--text);font-family:'DM Mono',monospace;font-size:1rem;padding:10px 14px;width:100%;-moz-appearance:textfield;outline:none" onfocus="this.style.borderColor='var(--accent-cardio)'" onblur="this.style.borderColor='var(--border)'">
         <span class="unit-label">min</span>
       </div>
     </div>
-    <div class="cardio-field">
-      <label>Commentaire (optionnel)</label>
-      <textarea id="cardio-comment" placeholder="Intensité, ressenti, intervalles..."></textarea>
+    <div style="margin-bottom:16px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Commentaire (optionnel)</div>
+      <textarea id="cardio-comment" placeholder="Intensité, ressenti, intervalles..." style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:10px 14px;width:100%;resize:none;height:60px;text-transform:uppercase;outline:none" onfocus="this.style.borderColor='var(--accent-cardio)';this.style.color='var(--text)'" onblur="this.style.borderColor='var(--border)'"></textarea>
     </div>
-    <div class="session-actions" style="margin-top:8px">
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeCardioModal()">ANNULER</button>
       <button class="btn-primary" style="background:var(--accent-cardio)" onclick="saveCardio()">VALIDER</button>
-      <button class="btn-secondary" onclick="resetCardio()">RAZ</button>
     </div>
   </div>
 </div>
@@ -366,11 +426,22 @@
   <select class="stat-select" id="stats-exercise" onchange="renderStats()">
     <option value="">-- Choisir un exercice --</option>
   </select>
-  <div class="chart-wrap">
-    <div class="chart-empty" id="chart-empty">Sélectionne un exercice</div>
-    <canvas id="myChart" class="chart-canvas" style="display:none"></canvas>
+
+  <!-- RM Cards + Tableau -->
+  <div id="rm-section" style="display:none;margin-top:8px">
+    <div class="stats-page-title" style="font-size:1.3rem" id="rm-section-title">RECORDS PAR RÉPÉTITION</div>
+    <div class="session-sub" style="margin-bottom:10px" id="rm-section-sub">Meilleure charge pour chaque nombre de reps</div>
+    <div class="rm-cards" id="rm-cards"></div>
+    <div class="chart-wrap" style="margin-top:8px">
+      <table class="rm-table" id="rm-table">
+        <thead><tr><th>Reps</th><th>Meilleure charge</th><th>Date</th></tr></thead>
+        <tbody id="rm-tbody"></tbody>
+      </table>
+    </div>
+    <div id="no-data-msg" style="display:none;text-align:center;padding:30px 0;color:var(--muted);font-family:'DM Mono',monospace;font-size:0.8rem">Pas encore de données pour cet exercice</div>
   </div>
-  <div id="pr-container"></div>
+
+  <!-- Volume par séance -->
   <div style="margin-top:28px">
     <div class="stats-page-title" style="font-size:1.4rem">VOLUME PAR SÉANCE</div>
     <div class="session-sub" style="margin-bottom:12px">Charge totale soulevée (kg)</div>
@@ -382,10 +453,73 @@
   </div>
 </div>
 
+<!-- CROSSFIT -->
+<div class="page" id="page-crossfit">
+  <div class="cf-header">
+    <div class="cf-title">WOD</div>
+    <div class="cf-unit-toggle">
+      <span class="cf-unit-label" id="cf-unit-label">KG</span>
+      <label class="toggle-switch" style="margin:0 6px">
+        <input type="checkbox" id="cf-unit-toggle" onchange="toggleCFUnit()">
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="cf-unit-label">LBS</span>
+    </div>
+  </div>
+  <div class="cf-tabs">
+    <button class="cf-tab active" onclick="showCFTab('girls',this)">GIRLS</button>
+    <button class="cf-tab" onclick="showCFTab('heroes',this)">HEROES</button>
+    <button class="cf-tab" onclick="showCFTab('benchmarks',this)">BENCHMARKS</button>
+  </div>
+  <div id="cf-content"></div>
+</div>
+
+<!-- MODALE LOG WOD -->
+<div class="modal-overlay" id="wod-modal">
+  <div class="modal" style="max-width:360px">
+    <h3 id="wod-modal-title">LOG WOD</h3>
+    <p id="wod-modal-desc" style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:16px;line-height:1.5"></p>
+    <div style="margin-bottom:12px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Date</div>
+      <input type="date" id="wod-date-input" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;width:100%;outline:none" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+    <div id="wod-modal-score-field" style="margin-bottom:12px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px" id="wod-modal-score-label">Score</div>
+      <input type="text" id="wod-score-input" placeholder="mm:ss ou nombre de reps" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:1rem;padding:10px 14px;width:100%;outline:none;text-transform:uppercase" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'">
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <label class="toggle-switch"><input type="checkbox" id="wod-rx-toggle"><span class="toggle-slider"></span></label>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--text);text-transform:uppercase">RX</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted)">Décoché = Scaled</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Commentaire (optionnel)</div>
+      <textarea id="wod-comment-input" placeholder="Ressenti, modifications..." style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.85rem;padding:10px 14px;width:100%;resize:none;height:60px;text-transform:uppercase;outline:none" onfocus="this.style.borderColor='#ff4d4d';this.style.color='var(--text)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeWodModal()">ANNULER</button>
+      <button class="btn-primary" style="background:#ff4d4d" onclick="saveWodScore()">VALIDER</button>
+    </div>
+  </div>
+</div>
+
 <!-- RÉGLAGES -->
 <div class="page" id="page-settings">
   <div class="settings-title">RÉGLAGES</div>
   <div class="session-sub" style="margin-bottom:24px">Configure tes séances</div>
+
+  <div class="settings-section">
+    <div class="settings-section-title" style="color:var(--muted)">PROFIL</div>
+    <div class="ex-config-field" style="margin-bottom:12px">
+      <div class="ex-config-label">Poids de corps (kg)</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input class="ex-config-input" type="text" inputmode="numeric" pattern="[0-9]*" id="bodyweight-input" placeholder="Ex: 85" style="max-width:100px;text-align:left">
+        <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted)">Utilisé pour le volume PDC/lesté</span>
+      </div>
+    </div>
+  </div>
 
   <div class="settings-section">
     <div class="settings-section-title" style="color:var(--muted)">GESTION DES SÉANCES</div>
@@ -423,14 +557,7 @@
   </div>
 </div>
 
-<div class="export-reminder" id="export-reminder">
-  <div class="export-reminder-title">💾 SAUVEGARDE RECOMMANDÉE</div>
-  <div class="export-reminder-text">Tu as atteint 5 séances depuis le dernier export.<br>Exporte ton historique pour ne rien perdre.</div>
-  <div class="export-reminder-actions">
-    <button class="btn-primary" onclick="exportFromReminder()">EXPORTER</button>
-    <button class="btn-secondary" onclick="dismissReminder()">PLUS TARD</button>
-  </div>
-</div>
+  
 
 <div class="toast" id="toast"></div>
 <div class="modal-overlay" id="modal">
@@ -494,8 +621,8 @@ function buildNavAndPages() {
     btn.onclick = function() { showPage(sid, this); };
     nav.appendChild(btn);
   });
-  ['CARDIO','HIST.','STATS','⚙️'].forEach((label, i) => {
-    const ids = ['cardio','log','stats','settings'];
+  ['CARDIO','WOD','HIST.','STATS','⚙️'].forEach((label, i) => {
+    const ids = ['cardio','crossfit','log','stats','settings'];
     const btn = document.createElement('button');
     btn.textContent = label;
     btn.dataset.page = ids[i];
@@ -535,6 +662,7 @@ function showPage(name, btn) {
   document.getElementById('page-' + name).classList.add('active');
   if (btn) btn.className = 'active-sess';
   if (name === 'log')      { renderLogbook(); updateStats(); }
+  if (name === 'crossfit') { renderCrossfit(); }
   if (name === 'stats')    { populateStatsSelect(); renderVolume(); }
   if (name === 'settings') { renderSettings(); }
   const sessions = getSessions();
@@ -549,8 +677,14 @@ function getLastPerf(exName) {
   for (const entry of log) {
     const ex = entry.exercises?.find(e => e.name === exName);
     if (!ex) continue;
-    // Support ancien format (blocs) et nouveau format (sets direct)
     const sets = ex.sets?.length ? ex.sets : (ex.blocs||[]).flatMap(b => b.sets||[]);
+    if (!sets.length) continue;
+    const maxKg = Math.max(...sets.map(s => parseFloat(s.kg) || 0));
+    if (maxKg === 0) {
+      // PDC — afficher les meilleures reps
+      const maxReps = Math.max(...sets.map(s => parseFloat(s.reps) || 0));
+      return `PDC × ${maxReps || '—'} reps`;
+    }
     const best = sets.reduce((max, s) => {
       const kg = parseFloat(s.kg) || 0;
       return kg > (parseFloat(max?.kg) || 0) ? s : max;
@@ -560,16 +694,18 @@ function getLastPerf(exName) {
   return null;
 }
 
-function setRow(sess, exId, i) {
+function setRow(sess, exId, i, isPDC) {
   return `<tr><td class="set-num">${i}</td>
-    <td><input type="number" inputmode="decimal" step="0.5" min="0" placeholder="—" id="kg-${sess}-${exId}-${i}"></td>
+    <td><input type="number" inputmode="decimal" step="0.5" min="0" placeholder="${isPDC ? '0=PDC' : '—'}" id="kg-${sess}-${exId}-${i}"></td>
     <td><input type="number" inputmode="numeric" min="0" placeholder="—" id="reps-${sess}-${exId}-${i}"></td></tr>`;
 }
 
 function addSet(sess, exId) {
   const tbody = document.getElementById(`sets-${sess}-${exId}`);
   const i = tbody.querySelectorAll('tr').length + 1;
-  tbody.insertAdjacentHTML('beforeend', setRow(sess, exId, i));
+  const cfg = getConfig();
+  const ex = (cfg[sess]?.exercises||[]).find(e => e.id === exId);
+  tbody.insertAdjacentHTML('beforeend', setRow(sess, exId, i, ex?.isPDC || false));
 }
 
 function formatChronoTime(secs) {
@@ -602,16 +738,13 @@ function renderSession(sess) {
     const card = document.createElement('div');
     card.className = 'exercise-card';
 
-    const lastPerf = getLastPerf(ex.name);
-    const lastPerfHTML = lastPerf ? `<div class="last-perf">Dernière fois : <span>${lastPerf}</span></div>` : '';
     const timer = ex.timer || 90;
     const sets = ex.sets || 3;
     const chronoId = `chrono-${sess}-${ex.id}`;
 
     let body = '';
-    body += lastPerfHTML;
-    body += `<table class="sets-table"><thead><tr><th>#</th><th>Charge (kg)</th><th>Reps</th></tr></thead><tbody id="sets-${sess}-${ex.id}">`;
-    for (let i = 1; i <= sets; i++) body += setRow(sess, ex.id, i);
+    body += `<table class="sets-table"><thead><tr><th>#</th><th>${ex.isPDC ? 'Charge kg (0=PDC)' : 'Charge (kg)'}</th><th>Reps</th></tr></thead><tbody id="sets-${sess}-${ex.id}">`;
+    for (let i = 1; i <= sets; i++) body += setRow(sess, ex.id, i, ex.isPDC);
     body += `</tbody></table>`;
     body += `<button class="add-set-btn" onclick="addSet('${sess}','${ex.id}')">+ série</button>`;
     body += `<div class="chrono-bar" id="${chronoId}">
@@ -655,7 +788,7 @@ function saveSession(sess) {
         const n = i + 1;
         const kg = document.getElementById(`kg-${sess}-${ex.id}-${n}`)?.value;
         const reps = document.getElementById(`reps-${sess}-${ex.id}-${n}`)?.value;
-        if (kg || reps) { hasData = true; sets.push({ kg: kg||'', reps: reps||'' }); }
+        if (kg !== '' && kg !== undefined || reps) { hasData = true; sets.push({ kg: kg !== '' ? kg : '', reps: reps||'' }); }
       });
     }
     if (comment) hasData = true;
@@ -673,7 +806,6 @@ function saveSession(sess) {
   showToast('✓ SÉANCE ' + (cfg[sess]?.name || sess) + ' SAUVEGARDÉE');
   updateStats();
   renderSession(sess);
-  checkExportReminder();
 }
 
 function confirmClear(sess) {
@@ -703,10 +835,33 @@ function selectActivity(act, btn) {
   selectedActivity = act;
   document.querySelectorAll('.activity-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
-  document.getElementById('cardio-form').classList.add('show');
+
   const hasDistance = ['run', 'veloext', 'natation', 'trail'].includes(act);
-  document.getElementById('field-distance').style.display = hasDistance ? 'block' : 'none';
-  document.getElementById('duree-label').textContent = hasDistance ? 'Durée totale' : 'Durée de travail';
+  const label = ACT_LABELS[act] || act;
+  const icon = label.split(' ')[0];
+  const name = label.split(' ').slice(1).join(' ');
+
+  // Remplir la modale
+  document.getElementById('cardio-modal-icon').textContent = icon;
+  document.getElementById('cardio-modal-title').textContent = name.toUpperCase();
+  document.getElementById('cardio-modal-field-distance').style.display = hasDistance ? 'block' : 'none';
+  document.getElementById('cardio-modal-duree-label').textContent = hasDistance ? 'Durée totale' : 'Durée de travail';
+
+  // Vider les champs
+  ['cardio-distance','cardio-duree','cardio-comment'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+
+  // Ouvrir la modale
+  document.getElementById('cardio-modal').classList.add('show');
+}
+
+function closeCardioModal() {
+  document.getElementById('cardio-modal').classList.remove('show');
+}
+
+function resetCardio() {
+  selectedActivity = null;
+  document.querySelectorAll('.activity-btn').forEach(b => b.classList.remove('selected'));
+  closeCardioModal();
 }
 
 function saveCardio() {
@@ -724,14 +879,6 @@ function saveCardio() {
   showToast('✓ SESSION CARDIO SAUVEGARDÉE');
   resetCardio();
   updateStats();
-  checkExportReminder();
-}
-
-function resetCardio() {
-  selectedActivity = null;
-  document.querySelectorAll('.activity-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('cardio-form').classList.remove('show');
-  ['cardio-distance','cardio-duree','cardio-comment'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
 }
 
 // =============================================
@@ -766,11 +913,19 @@ function renderLogbook() {
     cardioBtn.textContent = 'CARDIO';
     cardioBtn.onclick = function() { filterLog('CARDIO', this); };
     filterRow.appendChild(cardioBtn);
+    const wodBtn = document.createElement('button');
+    wodBtn.className = 'filter-btn';
+    wodBtn.textContent = 'WOD';
+    if (currentFilter === 'WOD') { wodBtn.style.borderColor='#ff4d4d'; wodBtn.style.color='#ff4d4d'; }
+    wodBtn.onclick = function() { filterLog('WOD', this); };
+    filterRow.appendChild(wodBtn);
   }
 
   const log = getLog();
   const container = document.getElementById('logbook-container');
-  const filtered = currentFilter === 'ALL' ? log : log.filter(e => e.session === currentFilter);
+  const filtered = currentFilter === 'ALL' ? log
+    : currentFilter === 'WOD' ? log.filter(e => e.type === 'wod')
+    : log.filter(e => e.session === currentFilter);
   if (!filtered.length) {
     container.innerHTML = `<div class="logbook-empty"><div class="icon">📋</div>Aucune séance enregistrée</div>`;
     return;
@@ -780,7 +935,14 @@ function renderLogbook() {
     const div = document.createElement('div');
     div.className = 'log-entry';
     let summary = '', bodyHTML = '';
-    if (entry.type === 'cardio') {
+    if (entry.type === 'wod') {
+      summary = `${entry.wodType} · ${entry.rx ? 'RX' : 'SCALED'} · ${entry.score}`;
+      bodyHTML = `<div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#ff4d4d;line-height:1">${entry.score}</div>
+        <div style="margin-top:6px;display:flex;gap:6px">
+          <span class="${entry.rx?'wod-score-rx':'wod-score-scaled'}">${entry.rx?'RX':'SCALED'}</span>
+        </div>
+        ${entry.comment ? `<div class="log-comment" style="margin-top:8px">${entry.comment}</div>` : ''}`;
+    } else if (entry.type === 'cardio') {
       const parts = [];
       if (entry.distance) parts.push(entry.distance + ' km');
       if (entry.duree) parts.push(entry.duree + ' min');
@@ -798,8 +960,11 @@ function renderLogbook() {
         const sets = ex.sets?.length ? ex.sets : (ex.blocs||[]).flatMap(b=>b.sets||[]);
         const chips = sets.map(s => {
           let l = '';
-          if (s.kg) l += s.kg + 'kg';
-          if (s.kg && s.reps) l += ' × ';
+          const kg = parseFloat(s.kg);
+          if (s.kg !== '' && s.kg !== undefined) {
+            l += kg === 0 ? 'PDC' : s.kg + 'kg';
+          }
+          if (l && s.reps) l += ' × ';
           if (s.reps) l += s.reps;
           return l ? `<span class="log-set-chip">${l}</span>` : '';
         }).filter(Boolean).join('');
@@ -812,13 +977,21 @@ function renderLogbook() {
       }).join('');
     }
     const sessIdx = sessions.indexOf(entry.session);
-    const tagColor = entry.session === 'CARDIO' ? '#ff9f1c' : getSessColor(sessIdx >= 0 ? sessIdx : 0);
-    const tagText = entry.session === 'CARDIO' ? '🔥' : entry.session;
+    const tagColor = entry.type === 'wod' ? '#ff4d4d' : entry.session === 'CARDIO' ? '#ff9f1c' : getSessColor(sessIdx >= 0 ? sessIdx : 0);
+    const tagText = entry.type === 'wod' ? '💪' : entry.session === 'CARDIO' ? '🔥' : entry.session;
+    const displayName = entry.type === 'wod' ? entry.wodName : entry.date;
     div.innerHTML = `
       <div class="log-entry-header" onclick="this.parentElement.classList.toggle('open')">
         <div class="log-entry-left">
-          <span class="log-tag" style="color:${tagColor}">${tagText}</span>
-          <div><div class="log-date">${entry.date}</div><div class="log-summary">${summary}</div></div>
+          <span class="log-tag" style="color:${tagColor};font-size:${entry.type==='wod'?'0.75rem':'1.5rem'};font-family:'DM Mono',monospace">${tagText}</span>
+          <div>
+            <div class="log-date">${
+              entry.type === 'wod' ? entry.wodName
+              : entry.type === 'cardio' ? entry.activityLabel
+              : (getConfig()[entry.session]?.name || ('SÉANCE ' + entry.session))
+            }</div>
+            <div class="log-summary">${entry.date} · ${summary}</div>
+          </div>
         </div>
         <button class="log-delete" onclick="event.stopPropagation();deleteEntry(${entry.id})">🗑</button>
       </div>
@@ -865,7 +1038,6 @@ function exportLog() {
   a.href = url; a.download = `logbook_${new Date().toISOString().split('T')[0]}.json`; a.click();
   URL.revokeObjectURL(url);
   showToast('✓ EXPORT TÉLÉCHARGÉ');
-  localStorage.setItem('last_export_reminder', getLog().length);
 }
 
 function importLog(event) {
@@ -900,7 +1072,7 @@ function populateStatsSelect() {
   const log = getLog().filter(e => e.type === 'session');
   const exNames = new Set();
   log.forEach(e => (e.exercises||[]).forEach(ex => exNames.add(ex.name)));
-  ['A','B','C'].forEach(s => (cfg[s]?.exercises||[]).forEach(ex => exNames.add(ex.name)));
+  getSessions().forEach(s => (cfg[s]?.exercises||[]).forEach(ex => exNames.add(ex.name)));
   const sel = document.getElementById('stats-exercise');
   const current = sel.value;
   sel.innerHTML = '<option value="">-- Choisir un exercice --</option>';
@@ -914,40 +1086,121 @@ function populateStatsSelect() {
 
 function renderStats() {
   const name = document.getElementById('stats-exercise').value;
-  const prContainer = document.getElementById('pr-container');
-  const canvas = document.getElementById('myChart');
-  const emptyMsg = document.getElementById('chart-empty');
-  prContainer.innerHTML = '';
-  if (!name) { canvas.style.display = 'none'; emptyMsg.style.display = 'block'; emptyMsg.textContent = 'Sélectionne un exercice'; return; }
+  const rmSection = document.getElementById('rm-section');
+  rmSection.style.display = 'none';
+
+  if (!name) {
+    canvas.style.display = 'none';
+    emptyMsg.style.display = 'block';
+    emptyMsg.textContent = 'Sélectionne un exercice';
+    return;
+  }
 
   const log = getLog().filter(e => e.type === 'session');
-  const points = [];
+  const allSets = [];
+
+  // Lire isPDC depuis la config
+  const cfg = getConfig();
+  let isPDC = false;
+  getSessions().forEach(s => {
+    const ex = (cfg[s]?.exercises||[]).find(e => e.name === name);
+    if (ex && ex.isPDC) isPDC = true;
+  });
+
   log.forEach(entry => {
     const ex = entry.exercises?.find(e => e.name === name);
     if (!ex) return;
     const sets = ex.sets?.length ? ex.sets : (ex.blocs||[]).flatMap(b=>b.sets||[]);
-    const maxKg = Math.max(...sets.map(s => parseFloat(s.kg)||0));
-    if (maxKg > 0) {
-      const d = new Date(entry.dateISO);
-      const fmt = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getFullYear()).slice(-2);
-      points.push({ date: fmt, dateISO: entry.dateISO, kg: maxKg });
-    }
+    const d = new Date(entry.dateISO);
+    const dateStr = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getFullYear()).slice(-2);
+    sets.forEach(s => {
+      const kg = parseFloat(s.kg);
+      const reps = parseFloat(s.reps) || 0;
+      if (reps > 0) {
+        allSets.push({ kg: isNaN(kg) ? 0 : kg, reps, dateISO: entry.dateISO, dateStr });
+      }
+    });
   });
-  points.sort((a,b) => new Date(a.dateISO) - new Date(b.dateISO));
 
-  if (!points.length) { canvas.style.display = 'none'; emptyMsg.style.display = 'block'; emptyMsg.textContent = 'Pas encore de données pour cet exercice'; return; }
-  emptyMsg.style.display = 'none'; canvas.style.display = 'block';
+  // Graphique progression
+  if (!allSets.length) {
+    rmSection.style.display = 'block';
+    document.getElementById('rm-cards').innerHTML = '';
+    document.getElementById('rm-tbody').innerHTML = '';
+    document.getElementById('no-data-msg').style.display = 'block';
+    return;
+  }
 
-  const pr = points.reduce((max, p) => p.kg > max.kg ? p : max, points[0]);
-  prContainer.innerHTML = `<div class="pr-box"><div><div class="pr-label">Record (charge max)</div><div class="pr-date">${pr.date}</div></div><div style="text-align:right"><div class="pr-val">${pr.kg} kg</div></div></div>`;
+  document.getElementById('no-data-msg').style.display = 'none';
 
-  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
-  const color = '#c8ff00';
-  chartInstance = new Chart(canvas, {
-    type: 'line',
-    data: { labels: points.map(p=>p.date), datasets: [{ data: points.map(p=>p.kg), borderColor: color, backgroundColor: color+'18', borderWidth:2, pointBackgroundColor:color, pointRadius:5, tension:0.3, fill:true }] },
-    options: { responsive:true, plugins:{ legend:{display:false}, tooltip:{backgroundColor:'#1e1e1e',borderColor:'#2a2a2a',borderWidth:1,titleColor:'#666',bodyColor:'#e8e8e8',callbacks:{label:ctx=>ctx.parsed.y+' kg'}} }, scales:{ x:{ticks:{color:'#666',font:{family:'DM Mono',size:10},maxRotation:45},grid:{color:'#1e1e1e'}}, y:{ticks:{color:'#666',font:{family:'DM Mono',size:10},callback:v=>v+' kg'},grid:{color:'#2a2a2a'}} } }
-  });
+  // RM Section
+  rmSection.style.display = 'block';
+
+  if (isPDC) {
+    document.getElementById('rm-section-title').textContent = 'RECORDS PAR LEST';
+    document.getElementById('rm-section-sub').textContent = 'Meilleur nombre de reps par charge utilisée';
+    const byKg = {};
+    allSets.forEach(s => {
+      const key = String(s.kg); // forcer string pour cohérence
+      if (!byKg[key] || s.reps > byKg[key].reps) byKg[key] = { reps: s.reps, dateStr: s.dateStr };
+    });
+    const sortedKg = Object.keys(byKg).map(Number).sort((a,b) => a-b);
+    const maxReps = Math.max(...sortedKg.map(k => byKg[String(k)].reps));
+
+    // Card PR PDC (0kg uniquement) en premier si elle existe
+    const pdcPR = byKg['0'];
+    const pdcCard = pdcPR ? `<div class="rm-card is-pr" style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;border-color:#b388ff">
+      <div>
+        <div class="rm-card-label">🏆 PR POIDS DE CORPS</div>
+        <div class="rm-card-sub" style="margin-top:4px">${pdcPR.dateStr}</div>
+      </div>
+      <div class="rm-card-val" style="font-size:2.5rem">${pdcPR.reps} <span style="font-size:1rem;color:var(--muted)">reps</span></div>
+    </div>` : '';
+
+    // Cards lestées (on exclut 0kg qui est déjà dans la card PR PDC)
+    const lestedKeys = sortedKg.filter(k => k > 0).slice(0, 6);
+    document.getElementById('rm-cards').innerHTML = pdcCard + lestedKeys.map(kg => {
+      const { reps, dateStr } = byKg[String(kg)];
+      const isPR = reps === maxReps && kg > 0;
+      return `<div class="rm-card${isPR?' is-pr':''}">
+        <div class="rm-card-label">+${kg}kg</div>
+        <div class="rm-card-val">${reps}</div>
+        <div class="rm-card-sub">reps — ${dateStr}</div>
+      </div>`;
+    }).join('');
+    document.querySelector('.rm-table thead tr').innerHTML = '<th>Lest</th><th>Meilleur reps</th><th>Date</th>';
+    document.getElementById('rm-tbody').innerHTML = sortedKg.map(kg => {
+      const { reps, dateStr } = byKg[String(kg)];
+      const isPR = reps === maxReps;
+      return `<tr class="${isPR?'pr-row':''}"><td>${kg===0?'PDC':'+'+kg+' kg'}</td><td>${reps} reps${isPR?' 🏆':''}</td><td class="rm-date">${dateStr}</td></tr>`;
+    }).join('');
+  } else {
+    document.getElementById('rm-section-title').textContent = 'RECORDS PAR RÉPÉTITION';
+    document.getElementById('rm-section-sub').textContent = 'Meilleure charge pour chaque nombre de reps';
+    const byReps = {};
+    allSets.forEach(s => {
+      if (!byReps[s.reps] || s.kg > byReps[s.reps].kg) byReps[s.reps] = { kg: s.kg, dateStr: s.dateStr };
+    });
+    const sortedReps = Object.keys(byReps).map(Number).sort((a,b) => a-b);
+    const maxKgOverall = Math.max(...sortedReps.map(r => byReps[r].kg));
+    const keyRMs = [1,2,3,5,8,10];
+    document.getElementById('rm-cards').innerHTML = keyRMs.map(r => {
+      if (!byReps[r]) return `<div class="rm-card"><div class="rm-card-label">${r} RM</div><div class="rm-card-val" style="color:var(--muted);font-size:1rem">—</div><div class="rm-card-sub">aucune donnée</div></div>`;
+      const { kg, dateStr } = byReps[r];
+      const isPR = kg === maxKgOverall && r === 1;
+      return `<div class="rm-card${isPR?' is-pr':''}">
+        <div class="rm-card-label">${r} RM</div>
+        <div class="rm-card-val">${kg}kg</div>
+        <div class="rm-card-sub">${dateStr}</div>
+      </div>`;
+    }).join('');
+    document.querySelector('.rm-table thead tr').innerHTML = '<th>Reps</th><th>Meilleure charge</th><th>Date</th>';
+    document.getElementById('rm-tbody').innerHTML = sortedReps.map(r => {
+      const { kg, dateStr } = byReps[r];
+      const isPR = kg === maxKgOverall;
+      return `<tr class="${isPR?'pr-row':''}"><td>${r} rep${r>1?'s':''}</td><td>${kg} kg${isPR?' 🏆':''}</td><td class="rm-date">${dateStr}</td></tr>`;
+    }).join('');
+  }
 }
 
 function setVolFilter(type, btn) {
@@ -988,7 +1241,26 @@ function renderVolume() {
   const empty = document.getElementById('vol-empty');
   if (!sorted.length) { canvas.style.display='none'; empty.style.display='block'; return; }
   const labels = sorted.map(e => { const d=new Date(e.dateISO); return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getFullYear()).slice(-2); });
-  const data = sorted.map(e => { let t=0; (e.exercises||[]).forEach(ex=>{ const sets = ex.sets?.length ? ex.sets : (ex.blocs||[]).flatMap(b=>b.sets||[]); sets.forEach(s=>{t+=(parseFloat(s.kg)||0)*(parseFloat(s.reps)||0);}); }); return Math.round(t); });
+  const bodyweight = getConfig().bodyweight || 0;
+  const data = sorted.map(e => {
+    let t = 0;
+    (e.exercises||[]).forEach(ex => {
+      const sets = ex.sets?.length ? ex.sets : (ex.blocs||[]).flatMap(b=>b.sets||[]);
+      // Trouver si l'exercice est PDC dans la config
+      const exConfig = getSessions().flatMap(s => getConfig()[s]?.exercises||[]).find(c => c.name === ex.name);
+      const isPDC = exConfig?.isPDC || false;
+      sets.forEach(s => {
+        const kg = parseFloat(s.kg) || 0;
+        const reps = parseFloat(s.reps) || 0;
+        if (isPDC) {
+          t += (bodyweight + kg) * reps; // poids corps + lest éventuel
+        } else {
+          t += kg * reps;
+        }
+      });
+    });
+    return Math.round(t);
+  });
   const colors = sorted.map(e => getSessColor((sessions.indexOf(e.session))));
   empty.style.display='none'; canvas.style.display='block';
   if (volChartInstance) { volChartInstance.destroy(); volChartInstance=null; }
@@ -1041,6 +1313,10 @@ function renderSettings() {
   const cfg = getConfig();
   const sessions = cfg.sessions || ['A','B','C'];
 
+  // Poids de corps
+  const bwEl = document.getElementById('bodyweight-input');
+  if (bwEl) bwEl.value = cfg.bodyweight || '';
+
   // Session list chips
   const sessList = document.getElementById('sess-list');
   sessList.innerHTML = '';
@@ -1088,8 +1364,10 @@ function buildExCard(sess, ex, idx) {
   div.className = 'ex-config-card';
   div.id = `ex-card-${sess}-${idx}`;
   div.innerHTML = `
-    <button class="ex-delete-btn" onclick="removeExercise('${sess}', ${idx})">🗑</button>
-    <input class="ex-config-name" placeholder="Nom de l'exercice" value="${ex.name||''}" id="ex-name-${sess}-${idx}">
+    <div class="ex-name-row">
+      <input class="ex-config-name" placeholder="Nom de l'exercice" value="${ex.name||''}" id="ex-name-${sess}-${idx}">
+      <button class="ex-delete-btn" onclick="removeExercise('${sess}', ${idx})">🗑</button>
+    </div>
     <div class="ex-config-row" style="grid-template-columns:1fr 1fr">
       <div class="ex-config-field">
         <div class="ex-config-label">Nombre de séries</div>
@@ -1099,6 +1377,16 @@ function buildExCard(sess, ex, idx) {
         <div class="ex-config-label">Timer repos (s)</div>
         <input class="ex-config-input" type="text" inputmode="numeric" pattern="[0-9]*" value="${ex.timer||90}" id="ex-timer-${sess}-${idx}">
       </div>
+    </div>
+    <div class="pdc-toggle-row">
+      <div>
+        <div class="pdc-toggle-label">Poids de corps / Lesté</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.58rem;color:#444;margin-top:2px">Stats en reps (PDC) ou en charge (lest)</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="ex-pdc-${sess}-${idx}" ${ex.isPDC ? 'checked' : ''}>
+        <span class="toggle-slider"></span>
+      </label>
     </div>`;
   return div;
 }
@@ -1133,11 +1421,11 @@ function deleteSession(sid) {
     saveConfig(cfg);
     buildNavAndPages();
     getSessions().forEach(s => renderSession(s));
+    // Rester sur la page réglages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.className = '');
+    document.getElementById('page-settings').classList.add('active');
     renderSettings();
-    // Afficher la première séance
-    const firstSess = cfg.sessions[0];
-    const firstBtn = document.querySelector(`nav button[data-page="${firstSess}"]`);
-    showPage(firstSess, firstBtn);
     showToast('Séance supprimée');
   });
 }
@@ -1154,9 +1442,10 @@ function addExercise(sess) {
     cards.forEach((card, idx) => {
       current.push({
         id: cfg[sess].exercises[idx]?.id || ('ex_'+Date.now()+'_'+idx),
-        name:  document.getElementById(`ex-name-${sess}-${idx}`)?.value?.trim() || '',
+        name:  document.getElementById(`ex-name-${sess}-${idx}`)?.value?.trim().toUpperCase() || '',
         sets:  parseInt(document.getElementById(`ex-sets-${sess}-${idx}`)?.value) || 3,
         timer: parseInt(document.getElementById(`ex-timer-${sess}-${idx}`)?.value) || 90,
+        isPDC: document.getElementById(`ex-pdc-${sess}-${idx}`)?.checked || false,
       });
     });
     cfg[sess].exercises = current;
@@ -1188,9 +1477,10 @@ function removeExercise(sess, idx) {
       cards.forEach((card, i) => {
         current.push({
           id: cfg[sess].exercises[i]?.id || ('ex_'+Date.now()+'_'+i),
-          name:  document.getElementById(`ex-name-${sess}-${i}`)?.value?.trim() || '',
+          name:  document.getElementById(`ex-name-${sess}-${i}`)?.value?.trim().toUpperCase() || '',
           sets:  parseInt(document.getElementById(`ex-sets-${sess}-${i}`)?.value) || 3,
           timer: parseInt(document.getElementById(`ex-timer-${sess}-${i}`)?.value) || 90,
+          isPDC: document.getElementById(`ex-pdc-${sess}-${i}`)?.checked || false,
         });
       });
       cfg[sess].exercises = current;
@@ -1205,22 +1495,26 @@ function removeExercise(sess, idx) {
 
 function saveSettings() {
   const cfg = getConfig();
+  // Poids de corps
+  const bwEl = document.getElementById('bodyweight-input');
+  if (bwEl && bwEl.value) cfg.bodyweight = parseFloat(bwEl.value) || 0;
   const sessions = cfg.sessions || [];
   sessions.forEach(sess => {
     const nameEl = document.getElementById(`sess-name-${sess}`);
-    if (nameEl) cfg[sess].name = nameEl.value.trim() || ('SÉANCE '+sess);
+    if (nameEl) cfg[sess].name = nameEl.value.trim().toUpperCase() || ('SÉANCE '+sess);
     const container = document.getElementById(`ex-container-${sess}`);
     if (!container) return;
     const cards = container.querySelectorAll('.ex-config-card');
     const exercises = [];
     cards.forEach((card, idx) => {
-      const name = document.getElementById(`ex-name-${sess}-${idx}`)?.value?.trim();
+      const name = document.getElementById(`ex-name-${sess}-${idx}`)?.value?.trim().toUpperCase();
       if (!name) return;
       exercises.push({
         id: cfg[sess].exercises[idx]?.id || ('ex_'+Date.now()+'_'+idx),
         name,
         sets:  parseInt(document.getElementById(`ex-sets-${sess}-${idx}`)?.value) || 3,
         timer: parseInt(document.getElementById(`ex-timer-${sess}-${idx}`)?.value) || 90,
+        isPDC: document.getElementById(`ex-pdc-${sess}-${idx}`)?.checked || false,
       });
     });
     cfg[sess].exercises = exercises;
@@ -1288,15 +1582,7 @@ function dismissDeload(sess) {
 // =============================================
 // EXPORT REMINDER
 // =============================================
-function checkExportReminder() {
-  const total = getLog().length; if (!total) return;
-  const lastReminder = parseInt(localStorage.getItem('last_export_reminder')||'0');
-  const dismissed = parseInt(localStorage.getItem('export_reminder_dismissed')||'0');
-  if (total >= Math.max(lastReminder, dismissed) + 5) document.getElementById('export-reminder').classList.add('show');
-}
 
-function exportFromReminder() { exportLog(); document.getElementById('export-reminder').classList.remove('show'); }
-function dismissReminder() { document.getElementById('export-reminder').classList.remove('show'); localStorage.setItem('export_reminder_dismissed', getLog().length); }
 
 // =============================================
 // CHRONO
@@ -1355,6 +1641,398 @@ function confirmModal() { document.getElementById('modal').classList.remove('sho
 function closeModal() { document.getElementById('modal').classList.remove('show'); pendingAction=null; }
 
 // =============================================
+// =============================================
+// CROSSFIT
+// =============================================
+
+const WODS = {
+  girls: [
+    { id:'angie', name:'ANGIE', type:'For Time', scoreType:'time',
+      desc:'100 Pull-Ups\n100 Push-Ups\n100 Sit-Ups\n100 Air Squats\nDans cet ordre, terminer chaque mouvement avant de passer au suivant.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'barbara', name:'BARBARA', type:'5 rounds for time', scoreType:'time',
+      desc:'20 Pull-Ups\n30 Push-Ups\n40 Sit-Ups\n50 Air Squats\nRepos 3 min entre chaque round.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'chelsea', name:'CHELSEA', type:'EMOM 30 min', scoreType:'rounds',
+      desc:'5 Pull-Ups\n10 Push-Ups\n15 Air Squats\nChaque minute pendant 30 minutes.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'cindy', name:'CINDY', type:'AMRAP 20 min', scoreType:'rounds',
+      desc:'5 Pull-Ups\n10 Push-Ups\n15 Air Squats',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'diane', name:'DIANE', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nDeadlift\nHandstand Push-Ups',
+      std:{ m_kg:'102,5 kg', f_kg:'70 kg', m_lbs:'225 lbs', f_lbs:'155 lbs' } },
+    { id:'elizabeth', name:'ELIZABETH', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nClean\nRing Dips',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'fran', name:'FRAN', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nThrusters\nPull-Ups',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'grace', name:'GRACE', type:'For Time', scoreType:'time',
+      desc:'30 Clean & Jerks',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'helen', name:'HELEN', type:'3 rounds for time', scoreType:'time',
+      desc:'400m Run\n21 Kettlebell Swings\n12 Pull-Ups',
+      std:{ m_kg:'24 kg', f_kg:'16 kg', m_lbs:'53 lbs', f_lbs:'35 lbs' } },
+    { id:'isabel', name:'ISABEL', type:'For Time', scoreType:'time',
+      desc:'30 Snatches',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'jackie', name:'JACKIE', type:'For Time', scoreType:'time',
+      desc:'1000m Row\n50 Thrusters\n30 Pull-Ups',
+      std:{ m_kg:'20 kg', f_kg:'20 kg', m_lbs:'45 lbs', f_lbs:'45 lbs' } },
+    { id:'karen', name:'KAREN', type:'For Time', scoreType:'time',
+      desc:'150 Wall Ball Shots',
+      std:{ m_kg:'9 kg', f_kg:'6 kg', m_lbs:'20 lbs', f_lbs:'14 lbs' } },
+    { id:'linda', name:'LINDA', type:'For Time', scoreType:'time',
+      desc:'10-9-8-7-6-5-4-3-2-1\nDeadlift (1,5x BW)\nBench Press (BW)\nClean (0,75x BW)',
+      std:{ m_kg:'Basé poids corps', f_kg:'Basé poids corps', m_lbs:'Bodyweight-based', f_lbs:'Bodyweight-based' } },
+    { id:'mary', name:'MARY', type:'AMRAP 20 min', scoreType:'rounds',
+      desc:'5 Handstand Push-Ups\n10 Pistols (alternatifs)\n15 Pull-Ups',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'nancy', name:'NANCY', type:'5 rounds for time', scoreType:'time',
+      desc:'400m Run\n15 Overhead Squats',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'amanda', name:'AMANDA', type:'For Time', scoreType:'time',
+      desc:'9-7-5\nMuscle-Ups\nSnatches',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'annie', name:'ANNIE', type:'For Time', scoreType:'time',
+      desc:'50-40-30-20-10\nDouble-Unders\nSit-Ups',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'eva', name:'EVA', type:'5 rounds for time', scoreType:'time',
+      desc:'800m Run\n30 Kettlebell Swings (2 pood)\n30 Pull-Ups',
+      std:{ m_kg:'32 kg', f_kg:'24 kg', m_lbs:'70 lbs', f_lbs:'53 lbs' } },
+    { id:'kelly', name:'KELLY', type:'5 rounds for time', scoreType:'time',
+      desc:'400m Run\n30 Box Jumps\n30 Wall Ball Shots',
+      std:{ m_kg:'9 kg / 60 cm', f_kg:'6 kg / 50 cm', m_lbs:'20 lbs / 24"', f_lbs:'14 lbs / 20"' } },
+    { id:'nicole', name:'NICOLE', type:'AMRAP 20 min', scoreType:'rounds',
+      desc:'400m Run\nMax Pull-Ups\nNoter le nombre de pull-ups à chaque round.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'chelsea2', name:'KING KONG', type:'For Time', scoreType:'time',
+      desc:'3 rounds\n1 Deadlift\n2 Muscle-Ups\n3 Squat Cleans\n4 Handstand Push-Ups',
+      std:{ m_kg:'193 kg / 102,5 kg', f_kg:'127 kg / 70 kg', m_lbs:'455 lbs / 225 lbs', f_lbs:'285 lbs / 155 lbs' } },
+    { id:'lynne', name:'LYNNE', type:'5 rounds', scoreType:'rounds',
+      desc:'Max Bench Press\nMax Pull-Ups\nRepos entre les rounds. Pas de limite de temps.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'tabata', name:'TABATA SOMETHING ELSE', type:'Tabata', scoreType:'rounds',
+      desc:'8 rounds (20s on / 10s off) de chaque :\nPull-Ups → Push-Ups → Sit-Ups → Air Squats\nScore = total reps les plus faibles de chaque exercice.',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+  ],
+  heroes: [
+    { id:'murph', name:'MURPH', type:'For Time', scoreType:'time',
+      desc:'1 Mile Run\n100 Pull-Ups\n200 Push-Ups\n300 Air Squats\n1 Mile Run\nEn gilet lésté si possible.',
+      std:{ m_kg:'9 kg gilet', f_kg:'6,5 kg gilet', m_lbs:'20 lbs vest', f_lbs:'14 lbs vest' } },
+    { id:'dt', name:'DT', type:'5 rounds for time', scoreType:'time',
+      desc:'12 Deadlifts\n9 Hang Power Cleans\n6 Push Jerks',
+      std:{ m_kg:'70 kg', f_kg:'47,5 kg', m_lbs:'155 lbs', f_lbs:'105 lbs' } },
+    { id:'jt', name:'JT', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nHandstand Push-Ups\nRing Dips\nPush-Ups',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'badger', name:'BADGER', type:'3 rounds for time', scoreType:'time',
+      desc:'30 Squat Cleans\n30 Pull-Ups\n800m Run',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'danny', name:'DANNY', type:'AMRAP 20 min', scoreType:'rounds',
+      desc:'30 Box Jumps\n20 Push-Ups\n10 Pull-Ups',
+      std:{ m_kg:'60 cm', f_kg:'50 cm', m_lbs:'24"', f_lbs:'20"' } },
+    { id:'adam', name:'ADAM', type:'For Time', scoreType:'time',
+      desc:'1 round\n21-15-9\nDeadlifts\nBox Jumps',
+      std:{ m_kg:'102,5 kg / 75 cm', f_kg:'70 kg / 60 cm', m_lbs:'225 lbs / 30"', f_lbs:'155 lbs / 24"' } },
+    { id:'blake', name:'BLAKE', type:'4 rounds for time', scoreType:'time',
+      desc:'100m Sprint\n10 OHS\n10 Burpees',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'bradshaw', name:'BRADSHAW', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n3 HSPU\n6 Deadlifts\n12 Pull-Ups\n24 Double Unders',
+      std:{ m_kg:'102,5 kg', f_kg:'70 kg', m_lbs:'225 lbs', f_lbs:'155 lbs' } },
+    { id:'bradley', name:'BRADLEY', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n10 Push Press\n10 KB Swings\n10 Box Jumps',
+      std:{ m_kg:'52 kg / 32 kg / 60 cm', f_kg:'35 kg / 24 kg / 50 cm', m_lbs:'115 lbs / 70 lbs / 24"', f_lbs:'75 lbs / 53 lbs / 20"' } },
+    { id:'bulger', name:'BULGER', type:'For Time', scoreType:'time',
+      desc:'9 rounds\n5 Pull-Ups\n10 Push-Ups\n15 Air Squats\n1/4 mile Run',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'coe', name:'COE', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n10 Pull-Ups\n10 Thrusters\n10 Burpees',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'coffey', name:'COFFEY', type:'For Time', scoreType:'time',
+      desc:'10-9-8-7-6-5-4-3-2-1\nSumo Deadlift High Pull\nBox Jumps',
+      std:{ m_kg:'43 kg / 60 cm', f_kg:'29 kg / 50 cm', m_lbs:'95 lbs / 24"', f_lbs:'65 lbs / 20"' } },
+    { id:'daniel', name:'DANIEL', type:'For Time', scoreType:'time',
+      desc:'50 Pull-Ups\n400m Run\n21 Thrusters\n800m Run\n21 Thrusters\n400m Run\n50 Pull-Ups',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'grant', name:'GRANT', type:'For Time', scoreType:'time',
+      desc:'10 Muscle-Ups\n75 Squats\n25 L Pull-Ups\n25 Back Extensions\n25 Box Jumps',
+      std:{ m_kg:'60 cm', f_kg:'50 cm', m_lbs:'24"', f_lbs:'20"' } },
+    { id:'hansen', name:'HANSEN', type:'5 rounds for time', scoreType:'time',
+      desc:'30 KB Swings\n30 Burpees\n30 GHD Sit-Ups',
+      std:{ m_kg:'32 kg', f_kg:'24 kg', m_lbs:'70 lbs', f_lbs:'53 lbs' } },
+    { id:'holbrook', name:'HOLBROOK', type:'For Time', scoreType:'time',
+      desc:'3 rounds\n25 GHD Sit-Ups\n25 Back Extensions\n25 Pull-Ups\n25 Thrusters',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'josh', name:'JOSH', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nOHS\nPull-Ups',
+      std:{ m_kg:'47,5 kg', f_kg:'34 kg', m_lbs:'105 lbs', f_lbs:'75 lbs' } },
+    { id:'loredo', name:'LOREDO', type:'6 rounds for time', scoreType:'time',
+      desc:'24 Air Squats\n24 Push-Ups\n24 Walking Lunges\n400m Run',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'luce', name:'LUCE', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n24 Air Squats\n24 Push-Ups\n24 Pull-Ups\n400m Run',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'michael', name:'MICHAEL', type:'3 rounds for time', scoreType:'time',
+      desc:'800m Run\n50 Back Extensions\n50 Sit-Ups',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'nate', name:'NATE', type:'AMRAP 20 min', scoreType:'rounds',
+      desc:'2 Muscle-Ups\n4 HSPU\n8 KB Swings',
+      std:{ m_kg:'32 kg', f_kg:'24 kg', m_lbs:'70 lbs', f_lbs:'53 lbs' } },
+    { id:'omar', name:'OMAR', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n10 Front Squats\n10 Ring Push-Ups',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'randy', name:'RANDY', type:'For Time', scoreType:'time',
+      desc:'75 Power Snatches',
+      std:{ m_kg:'34 kg', f_kg:'25 kg', m_lbs:'75 lbs', f_lbs:'55 lbs' } },
+    { id:'rex', name:'REX', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n10 OHS\n200m Run',
+      std:{ m_kg:'43 kg', f_kg:'29 kg', m_lbs:'95 lbs', f_lbs:'65 lbs' } },
+    { id:'ryan', name:'RYAN', type:'5 rounds for time', scoreType:'time',
+      desc:'7 Muscle-Ups\n21 Burpees',
+      std:{ m_kg:'Poids de corps', f_kg:'Poids de corps', m_lbs:'Bodyweight', f_lbs:'Bodyweight' } },
+    { id:'severin', name:'SEVERIN', type:'For Time', scoreType:'time',
+      desc:'3 rounds\n25 GHD Sit-Ups\n25 Back Extensions\n25 Box Jumps\n25 Sumo DL HP',
+      std:{ m_kg:'43 kg / 60 cm', f_kg:'29 kg / 50 cm', m_lbs:'95 lbs / 24"', f_lbs:'65 lbs / 20"' } },
+    { id:'skipper', name:'SKIPPER', type:'For Time', scoreType:'time',
+      desc:'10 rounds\n10 DB Hang Power Cleans\n10 DB Push Press\n10 DB Squats\n200m Run',
+      std:{ m_kg:'2×22,5 kg', f_kg:'2×15 kg', m_lbs:'2×50 lbs', f_lbs:'2×35 lbs' } },
+    { id:'tommy', name:'TOMMY V', type:'For Time', scoreType:'time',
+      desc:'21-15-9\nThrusters\nRope Climbs (4,5m)',
+      std:{ m_kg:'61 kg', f_kg:'43 kg', m_lbs:'135 lbs', f_lbs:'95 lbs' } },
+    { id:'tumilson', name:'TUMILSON', type:'For Time', scoreType:'time',
+      desc:'8 rounds\n200m Run\n11 DB Burpees',
+      std:{ m_kg:'2×22,5 kg', f_kg:'2×15 kg', m_lbs:'2×50 lbs', f_lbs:'2×35 lbs' } },
+    { id:'whitten', name:'WHITTEN', type:'5 rounds for time', scoreType:'time',
+      desc:'22 KB Swings\n22 Box Jumps\n400m Run\n22 Burpees\n22 Wall Ball Shots',
+      std:{ m_kg:'32 kg / 60 cm / 9 kg', f_kg:'24 kg / 50 cm / 6 kg', m_lbs:'70 lbs / 24" / 20 lbs', f_lbs:'53 lbs / 20" / 14 lbs' } },
+  ],
+  benchmarks: [
+    { id:'bk_backsquat', name:'BACK SQUAT 1RM', type:'Strength', scoreType:'kg',
+      desc:'1 Rep Max Back Squat.\nAprès warm-up progressif, tester sa charge maximale sur 1 répétition.',
+      std:{ m_kg:'Standards : Novice <100kg\nIntermédiaire 100-130kg\nAvancé 130-170kg\nElite >170kg', f_kg:'Novice <60kg\nIntermédiaire 60-90kg\nAvancé 90-115kg\nElite >115kg', m_lbs:'Novice <220lbs\nIntermediate 220-285lbs\nAdvanced 285-375lbs\nElite >375lbs', f_lbs:'Novice <132lbs\nIntermediate 132-198lbs\nAdvanced 198-253lbs\nElite >253lbs' } },
+    { id:'bk_deadlift', name:'DEADLIFT 1RM', type:'Strength', scoreType:'kg',
+      desc:'1 Rep Max Deadlift.\nConventionnel ou sumo selon préférence.',
+      std:{ m_kg:'Novice <120kg\nIntermédiaire 120-160kg\nAvancé 160-200kg\nElite >200kg', f_kg:'Novice <70kg\nIntermédiaire 70-110kg\nAvancé 110-145kg\nElite >145kg', m_lbs:'Novice <265lbs\nIntermediate 265-352lbs\nAdvanced 352-440lbs\nElite >440lbs', f_lbs:'Novice <155lbs\nIntermediate 155-242lbs\nAdvanced 242-320lbs\nElite >320lbs' } },
+    { id:'bk_press', name:'SHOULDER PRESS 1RM', type:'Strength', scoreType:'kg',
+      desc:'1 Rep Max Strict Press.\nDebout, barre en rack, strict sans élan des jambes.',
+      std:{ m_kg:'Novice <55kg\nIntermédiaire 55-80kg\nAvancé 80-100kg\nElite >100kg', f_kg:'Novice <30kg\nIntermédiaire 30-50kg\nAvancé 50-65kg\nElite >65kg', m_lbs:'Novice <121lbs\nIntermediate 121-176lbs\nAdvanced 176-220lbs\nElite >220lbs', f_lbs:'Novice <66lbs\nIntermediate 66-110lbs\nAdvanced 110-143lbs\nElite >143lbs' } },
+    { id:'bk_clean', name:'CLEAN 1RM', type:'Olympic', scoreType:'kg',
+      desc:'1 Rep Max Clean (Squat Clean).\nÀ partir du sol, réception en squat complet.',
+      std:{ m_kg:'Novice <70kg\nIntermédiaire 70-100kg\nAvancé 100-130kg\nElite >130kg', f_kg:'Novice <45kg\nIntermédiaire 45-70kg\nAvancé 70-90kg\nElite >90kg', m_lbs:'Novice <155lbs\nIntermediate 155-220lbs\nAdvanced 220-285lbs\nElite >285lbs', f_lbs:'Novice <99lbs\nIntermediate 99-155lbs\nAdvanced 155-198lbs\nElite >198lbs' } },
+    { id:'bk_snatch', name:'SNATCH 1RM', type:'Olympic', scoreType:'kg',
+      desc:'1 Rep Max Snatch.\nMouvement complet en un temps, réception overhead squat.',
+      std:{ m_kg:'Novice <50kg\nIntermédiaire 50-80kg\nAvancé 80-105kg\nElite >105kg', f_kg:'Novice <30kg\nIntermédiaire 30-55kg\nAvancé 55-75kg\nElite >75kg', m_lbs:'Novice <110lbs\nIntermediate 110-176lbs\nAdvanced 176-231lbs\nElite >231lbs', f_lbs:'Novice <66lbs\nIntermediate 66-121lbs\nAdvanced 121-165lbs\nElite >165lbs' } },
+    { id:'bk_pullups', name:'MAX PULL-UPS', type:'Gymnastics', scoreType:'rounds',
+      desc:'Maximum de pull-ups stricts en 1 set.\nPrise en pronation, bras tendus au départ, menton au-dessus de la barre.',
+      std:{ m_kg:'Novice <10\nIntermédiaire 10-20\nAvancé 20-30\nElite >30', f_kg:'Novice <3\nIntermédiaire 3-10\nAvancé 10-20\nElite >20', m_lbs:'Novice <10\nIntermediate 10-20\nAdvanced 20-30\nElite >30', f_lbs:'Novice <3\nIntermediate 3-10\nAdvanced 10-20\nElite >20' } },
+    { id:'bk_hspu', name:'MAX HSPU', type:'Gymnastics', scoreType:'rounds',
+      desc:'Maximum de Handstand Push-Ups stricts en 1 set.\nStandards : tête touche le sol, bras tendus en haut.',
+      std:{ m_kg:'Novice <5\nIntermédiaire 5-15\nAvancé 15-30\nElite >30', f_kg:'Novice <1\nIntermédiaire 1-8\nAvancé 8-20\nElite >20', m_lbs:'Same', f_lbs:'Same' } },
+    { id:'bk_row500', name:'ROW 500m', type:'Cardio', scoreType:'time',
+      desc:'500m Rowing sprint.\nDépart assis, bonne technique, effort maximal.',
+      std:{ m_kg:'Novice >2:00\nIntermédiaire 1:45-2:00\nAvancé 1:30-1:45\nElite <1:30', f_kg:'Novice >2:15\nIntermédiaire 2:00-2:15\nAvancé 1:45-2:00\nElite <1:45', m_lbs:'Novice >2:00\nIntermediate 1:45-2:00\nAdvanced 1:30-1:45\nElite <1:30', f_lbs:'Novice >2:15\nIntermediate 2:00-2:15\nAdvanced 1:45-2:00\nElite <1:45' } },
+    { id:'bk_run400', name:'RUN 400m', type:'Cardio', scoreType:'time',
+      desc:'400m sprint.\nEffort maximal sur 1 tour de piste.',
+      std:{ m_kg:'Novice >1:30\nIntermédiaire 1:10-1:30\nAvancé 1:00-1:10\nElite <1:00', f_kg:'Novice >1:45\nIntermédiaire 1:25-1:45\nAvancé 1:10-1:25\nElite <1:10', m_lbs:'Same', f_lbs:'Same' } },
+    { id:'bk_du', name:'MAX DOUBLE UNDERS', type:'Gymnastics', scoreType:'rounds',
+      desc:'Maximum de double-unders consécutifs.\n1 minute ou max unbroken selon préférence.',
+      std:{ m_kg:'Novice <20\nIntermédiaire 20-50\nAvancé 50-100\nElite >100', f_kg:'Novice <10\nIntermédiaire 10-40\nAvancé 40-80\nElite >80', m_lbs:'Same', f_lbs:'Same' } },
+    { id:'bk_run1mile', name:'RUN 1 MILE', type:'Cardio', scoreType:'time',
+      desc:'1 mile (1609m) sprint.\nEffort maximal, pas de warm-up prolongé.',
+      std:{ m_kg:'Novice >8:00\nIntermédiaire 6:30-8:00\nAvancé 5:30-6:30\nElite <5:30', f_kg:'Novice >9:30\nIntermédiaire 7:30-9:30\nAvancé 6:30-7:30\nElite <6:30', m_lbs:'Novice >8:00\nIntermediate 6:30-8:00\nAdvanced 5:30-6:30\nElite <5:30', f_lbs:'Novice >9:30\nIntermediate 7:30-9:30\nAdvanced 6:30-7:30\nElite <6:30' } },
+    { id:'bk_barmu', name:'30 BAR MUSCLE-UPS', type:'Gymnastics', scoreType:'time',
+      desc:'30 Bar Muscle-Ups for time.\nDépart bras tendus en suspension à la barre, terminer les bras tendus en appui au-dessus.',
+      std:{ m_kg:'Novice >15:00\nIntermédiaire 8:00-15:00\nAvancé 4:00-8:00\nElite <4:00', f_kg:'Novice >20:00\nIntermédiaire 12:00-20:00\nAvancé 6:00-12:00\nElite <6:00', m_lbs:'Novice >15:00\nIntermediate 8:00-15:00\nAdvanced 4:00-8:00\nElite <4:00', f_lbs:'Novice >20:00\nIntermediate 12:00-20:00\nAdvanced 6:00-12:00\nElite <6:00' } },
+    { id:'bk_ringmu', name:'30 RING MUSCLE-UPS', type:'Gymnastics', scoreType:'time',
+      desc:'30 Ring Muscle-Ups for time.\nDépart en faux-appui bras tendus sous les anneaux, terminer en appui bras tendus au-dessus.',
+      std:{ m_kg:'Novice >20:00\nIntermédiaire 12:00-20:00\nAvancé 6:00-12:00\nElite <6:00', f_kg:'Novice >25:00\nIntermédiaire 15:00-25:00\nAvancé 8:00-15:00\nElite <8:00', m_lbs:'Novice >20:00\nIntermediate 12:00-20:00\nAdvanced 6:00-12:00\nElite <6:00', f_lbs:'Novice >25:00\nIntermediate 15:00-25:00\nAdvanced 8:00-15:00\nElite <8:00' } },
+  ]
+};
+
+let cfUnit = 'kg'; // 'kg' ou 'lbs'
+let cfTab = 'girls';
+let currentWodId = null;
+
+function toggleCFUnit() {
+  cfUnit = document.getElementById('cf-unit-toggle').checked ? 'lbs' : 'kg';
+  document.getElementById('cf-unit-label').textContent = cfUnit.toUpperCase();
+  renderCrossfit();
+}
+
+function showCFTab(tab, btn) {
+  cfTab = tab;
+  document.querySelectorAll('.cf-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCrossfit();
+}
+
+function getWodScores(wodId) {
+  return JSON.parse(localStorage.getItem('wod_scores') || '{}')[wodId] || [];
+}
+
+function saveWodScores(wodId, scores) {
+  const all = JSON.parse(localStorage.getItem('wod_scores') || '{}');
+  all[wodId] = scores;
+  localStorage.setItem('wod_scores', JSON.stringify(all));
+}
+
+function getWodPR(wodId, scoreType) {
+  const scores = getWodScores(wodId);
+  if (!scores.length) return null;
+  if (scoreType === 'time') {
+    // PR = temps le plus bas
+    return scores.reduce((best, s) => timeToSecs(s.score) < timeToSecs(best.score) ? s : best, scores[0]);
+  } else {
+    // PR = valeur la plus haute
+    return scores.reduce((best, s) => parseFloat(s.score) > parseFloat(best.score) ? s : best, scores[0]);
+  }
+}
+
+function timeToSecs(str) {
+  if (!str) return Infinity;
+  const parts = str.split(':');
+  if (parts.length === 2) return parseInt(parts[0])*60 + parseFloat(parts[1]);
+  return parseFloat(str) || Infinity;
+}
+
+function isPR(score, scores, scoreType) {
+  const pr = getWodPR('_tmp', scoreType);
+  if (scoreType === 'time') {
+    return scores.every(s => s === score || timeToSecs(s.score) >= timeToSecs(score.score));
+  } else {
+    return scores.every(s => s === score || parseFloat(s.score) <= parseFloat(score.score));
+  }
+}
+
+function renderCrossfit() {
+  const wods = WODS[cfTab] || [];
+  const container = document.getElementById('cf-content');
+  container.innerHTML = '';
+
+  wods.forEach(wod => {
+    const scores = getWodScores(wod.id);
+    const pr = getWodPR(wod.id, wod.scoreType);
+
+    const card = document.createElement('div');
+    card.className = 'wod-card';
+
+    // Standards selon unité sélectionnée
+    const mStd = cfUnit === 'kg' ? wod.std.m_kg : wod.std.m_lbs;
+    const fStd = cfUnit === 'kg' ? wod.std.f_kg : wod.std.f_lbs;
+
+    const prText = pr ? `PR : ${pr.score}${wod.scoreType === 'kg' ? ' kg' : ''}` : 'Aucun score';
+
+    const scoresHTML = scores.length ? scores.slice().reverse().map((s, idx) => {
+      const isThisPR = pr && s.score === pr.score && s.date === pr.date;
+      return `<div class="wod-score-item">
+        <div>
+          <div class="wod-score-val${isThisPR?' is-pr':''}">${s.score}${wod.scoreType==='kg'?' kg':''} ${isThisPR?'🏆':''}</div>
+          <span class="${s.rx?'wod-score-rx':'wod-score-scaled'}">${s.rx?'RX':'SCALED'}</span>
+          ${s.comment?`<div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);margin-top:2px">${s.comment}</div>`:''}
+        </div>
+        <div class="wod-score-meta">${s.date}</div>
+      </div>`;
+    }).join('') : `<div class="wod-no-scores">Aucun score enregistré</div>`;
+
+    card.innerHTML = `
+      <div class="wod-header" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="wod-name">${wod.name}</div>
+          <div class="wod-type">${wod.type}</div>
+        </div>
+        <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <div class="wod-pr">${prText}</div>
+          <span class="wod-toggle">▾</span>
+        </div>
+      </div>
+      <div class="wod-body">
+        <div class="wod-desc">${wod.desc}</div>
+        <div class="wod-standards">
+          <div class="wod-std-box">
+            <div class="wod-std-label">♂ Homme</div>
+            <div class="wod-std-val">${mStd}</div>
+          </div>
+          <div class="wod-std-box">
+            <div class="wod-std-label">♀ Femme</div>
+            <div class="wod-std-val">${fStd}</div>
+          </div>
+        </div>
+        <button class="wod-log-btn" onclick="openWodModal('${wod.id}')">+ LOGGER MON SCORE</button>
+        <div class="wod-scores">${scoresHTML}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function openWodModal(wodId) {
+  const wod = [...WODS.girls, ...WODS.heroes, ...WODS.benchmarks].find(w => w.id === wodId);
+  if (!wod) return;
+  currentWodId = wodId;
+  document.getElementById('wod-modal-title').textContent = wod.name;
+  document.getElementById('wod-modal-desc').textContent = wod.type;
+  const scoreLabel = wod.scoreType === 'time' ? 'Temps (mm:ss)' : wod.scoreType === 'kg' ? 'Charge (kg)' : 'Score (reps/rounds)';
+  document.getElementById('wod-modal-score-label').textContent = scoreLabel;
+  document.getElementById('wod-score-input').placeholder = wod.scoreType === 'time' ? 'Ex: 12:34' : wod.scoreType === 'kg' ? 'Ex: 150' : 'Ex: 15 rounds + 5';
+  document.getElementById('wod-score-input').value = '';
+  document.getElementById('wod-comment-input').value = '';
+  document.getElementById('wod-rx-toggle').checked = true;
+  // Date par défaut = aujourd'hui
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  document.getElementById('wod-date-input').value = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  document.getElementById('wod-modal').classList.add('show');
+}
+
+function closeWodModal() {
+  document.getElementById('wod-modal').classList.remove('show');
+  currentWodId = null;
+}
+
+function saveWodScore() {
+  if (!currentWodId) return;
+  const score = document.getElementById('wod-score-input').value.trim().toUpperCase();
+  if (!score) { showToast('Saisis un score !'); return; }
+  const rx = document.getElementById('wod-rx-toggle').checked;
+  const comment = document.getElementById('wod-comment-input').value.trim();
+  const dateVal = document.getElementById('wod-date-input').value;
+
+  // Construire la date depuis le sélecteur
+  const dateObj = dateVal ? new Date(dateVal + 'T12:00:00') : new Date();
+  const dateISO = dateObj.toISOString();
+  const dateStr = dateObj.toLocaleDateString('fr-FR', {day:'2-digit', month:'2-digit', year:'2-digit'});
+  const dateLong = dateObj.toLocaleDateString('fr-FR', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+  const wod = [...WODS.girls, ...WODS.heroes, ...WODS.benchmarks].find(w => w.id === currentWodId);
+
+  // Sauvegarder dans le store WOD
+  const scores = getWodScores(currentWodId);
+  scores.unshift({ score, rx, comment, date: dateStr, dateISO });
+  // Trier par date décroissante
+  scores.sort((a,b) => new Date(b.dateISO) - new Date(a.dateISO));
+  saveWodScores(currentWodId, scores);
+
+  // Pousser dans l'historique global
+  pushLog({
+    id: Date.now(),
+    type: 'wod',
+    session: 'WOD',
+    wodId: currentWodId,
+    wodName: wod?.name || currentWodId,
+    wodType: wod?.type || '',
+    score, rx, comment,
+    date: dateLong,
+    dateISO
+  });
+
+  showToast('✓ SCORE ENREGISTRÉ');
+  closeWodModal();
+  renderCrossfit();
+  updateStats();
+}
+
 // INIT
 // =============================================
 buildNavAndPages();
@@ -1366,7 +2044,6 @@ if (firstBtn) firstBtn.className = 'active-sess';
 document.getElementById('page-' + firstSess)?.classList.add('active');
 updateStats();
 checkDeload();
-checkExportReminder();
 
 // Dates par défaut pour l'export PDF
 (function() {
@@ -1389,7 +2066,7 @@ function generatePDF() {
   const endVal   = document.getElementById('export-date-end')?.value;
   if (!startVal || !endVal) { showToast('Sélectionne une période'); return; }
 
-  const userName = (document.getElementById('export-user-name')?.value?.trim() || '').toUpperCase();
+  const userName = (document.getElementById('export-user-name')?.value?.trim().toUpperCase() || '').toUpperCase();
   const start = new Date(startVal); start.setHours(0,0,0,0);
   const end   = new Date(endVal);   end.setHours(23,59,59,999);
   if (start > end) { showToast('Date de début > date de fin'); return; }
@@ -1422,7 +2099,7 @@ function generatePDF() {
     y = 16;
     // Footer
     doc.setFontSize(7); doc.setTextColor(...MUTED);
-    doc.text('FITNESS TRACKER — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin, 292);
+    doc.text('PEAKLOG — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin, 292);
   }
 
   function checkY(needed = 10) {
@@ -1438,7 +2115,7 @@ function generatePDF() {
   // Titre
   doc.setFont('helvetica','bold');
   doc.setFontSize(42); doc.setTextColor(...ACCENT);
-  doc.text('LOGBOOK', margin + 8, 60);
+  doc.text('PEAKLOG', margin + 8, 60);
   doc.setFontSize(20); doc.setTextColor(...WHITE);
   doc.text('STAN', margin + 8, 72);
   if (userName) {
@@ -1479,7 +2156,7 @@ function generatePDF() {
   });
 
   doc.setFontSize(8); doc.setTextColor(...MUTED);
-  doc.text('FITNESS TRACKER — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin + 8, 285);
+  doc.text('PEAKLOG — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin + 8, 285);
 
   // ── PAGES SÉANCES ────────────────────────────
   sessions.forEach((sid, si) => {
@@ -1561,7 +2238,7 @@ function generatePDF() {
 
     // Footer
     doc.setFontSize(7); doc.setTextColor(...MUTED);
-    doc.text('FITNESS TRACKER — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin + 8, 292);
+    doc.text('PEAKLOG — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin + 8, 292);
   });
 
   // ── PAGE CARDIO ──────────────────────────────
@@ -1609,7 +2286,7 @@ function generatePDF() {
     });
 
     doc.setFontSize(7); doc.setTextColor(...MUTED);
-    doc.text('FITNESS TRACKER — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin+8, 292);
+    doc.text('PEAKLOG — Export généré le ' + new Date().toLocaleDateString('fr-FR'), margin+8, 292);
   }
 
   // Sauvegarde — ouvre dans nouvel onglet si download bloqué (artefact), sinon télécharge
@@ -1619,7 +2296,7 @@ function generatePDF() {
   const blobUrl = URL.createObjectURL(pdfBlob);
   const a = document.createElement('a');
   a.href = blobUrl;
-  a.download = `fitness_tracker${nameSlug}_${dateStr}.pdf`;
+  a.download = `peaklog${nameSlug}_${dateStr}.pdf`;
   a.target = '_blank';
   document.body.appendChild(a);
   a.click();
@@ -1638,7 +2315,7 @@ document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState=
 let newWorker = null;
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/FITNESS-TRACKER/sw.js').then(reg => {
+  navigator.serviceWorker.register('/PEAKLOG/sw.js').then(reg => {
     reg.addEventListener('updatefound', () => {
       newWorker = reg.installing;
       newWorker.addEventListener('statechange', () => {

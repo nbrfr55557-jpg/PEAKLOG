@@ -1,6 +1,6 @@
-const CACHE = 'fitness-tracker-v1.2.0';
+const CACHE = 'peaklog-v1.2.0';
 const FILES = [
-  '/FITNESS-TRACKER/index.html',
+  '/PEAKLOG/index.html',
   'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap'
 ];
 
