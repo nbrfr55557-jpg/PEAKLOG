@@ -328,7 +328,7 @@
   .toast.show { transform: translateX(-50%) translateY(0); }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.show { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 100%; max-width: 360px; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 100%; max-width: 360px; box-sizing: border-box; }
   .modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--accent); margin-bottom: 8px; }
   .modal p { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; line-height: 1.5; }
   .modal-actions { display: flex; gap: 10px; }
@@ -341,7 +341,7 @@
 <header>
   <div class="header-top">
     <h1>PEAKLOG</h1>
-    <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1px;align-self:flex-end;padding-bottom:3px">v1.2.2</span>
+    <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1px;align-self:flex-end;padding-bottom:3px">v1.2.3</span>
   </div>
   <div class="nav-scroll-wrap">
     <nav id="main-nav"></nav>
@@ -483,10 +483,10 @@
 
 <!-- MODALE DATE WOD -->
 <div class="modal-overlay" id="wod-date-modal">
-  <div class="modal" style="max-width:340px;width:calc(100% - 40px);overflow:hidden;box-sizing:border-box">
+  <div class="modal" style="width:90%;max-width:340px;overflow:hidden;box-sizing:border-box">
     <h3 id="wod-date-modal-title" style="margin-bottom:8px">DATE</h3>
     <p style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:16px">Sélectionne la date de la performance</p>
-    <input type="date" id="wod-date-input" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;width:100%;max-width:100%;box-sizing:border-box;outline:none;margin-bottom:20px;display:block" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'"">
+    <input type="date" id="wod-date-input" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.9rem;padding:10px;width:100%;max-width:100%;box-sizing:border-box;outline:none;margin-bottom:20px;display:block;-webkit-appearance:none" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'"">
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeWodModal()">ANNULER</button>
       <button class="btn-primary" style="background:#ff4d4d" onclick="confirmWodDate()">SUIVANT →</button>
