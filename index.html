@@ -341,7 +341,7 @@
 <header>
   <div class="header-top">
     <h1>PEAKLOG</h1>
-    <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1px;align-self:flex-end;padding-bottom:3px">v1.2.1</span>
+    <span style="font-family:'DM Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1px;align-self:flex-end;padding-bottom:3px">v1.2.2</span>
   </div>
   <div class="nav-scroll-wrap">
     <nav id="main-nav"></nav>
@@ -483,10 +483,10 @@
 
 <!-- MODALE DATE WOD -->
 <div class="modal-overlay" id="wod-date-modal">
-  <div class="modal" style="max-width:340px">
+  <div class="modal" style="max-width:340px;width:calc(100% - 40px);overflow:hidden;box-sizing:border-box">
     <h3 id="wod-date-modal-title" style="margin-bottom:8px">DATE</h3>
     <p style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);margin-bottom:16px">Sélectionne la date de la performance</p>
-    <input type="date" id="wod-date-input" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;width:100%;outline:none;margin-bottom:20px" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'">
+    <input type="date" id="wod-date-input" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'DM Mono',monospace;font-size:0.9rem;padding:10px 14px;width:100%;max-width:100%;box-sizing:border-box;outline:none;margin-bottom:20px;display:block" onfocus="this.style.borderColor='#ff4d4d'" onblur="this.style.borderColor='var(--border)'"">
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeWodModal()">ANNULER</button>
       <button class="btn-primary" style="background:#ff4d4d" onclick="confirmWodDate()">SUIVANT →</button>
@@ -1245,11 +1245,11 @@ function renderStats() {
       </div>`;
     }).join('');
 
-    const sortedByKg = [...sortedReps].sort((a,b) => byReps[b].kg - byReps[a].kg);
-    document.querySelector('.rm-table thead tr').innerHTML = '<th>Reps</th><th>Meilleure charge</th><th>Date</th>';
-    document.getElementById('rm-tbody').innerHTML = sortedByKg.map(r => {
-      const { kg, dateStr } = byReps[r];
-      return `<tr><td>${r} rep${r>1?'s':''}</td><td>${kg} kg</td><td class="rm-date">${dateStr}</td></tr>`;
+    // Tableau : toutes les entrées triées par charge décroissante
+    const allSortedByKg = [...allSets].sort((a,b) => b.kg - a.kg);
+    document.querySelector('.rm-table thead tr').innerHTML = '<th>Charge</th><th>Reps</th><th>Date</th>';
+    document.getElementById('rm-tbody').innerHTML = allSortedByKg.map(s => {
+      return `<tr><td>${s.kg} kg</td><td>${s.reps} rep${s.reps>1?'s':''}</td><td class="rm-date">${s.dateStr}</td></tr>`;
     }).join('');
   }
 }
@@ -2149,6 +2149,9 @@ function generatePDF() {
   const W = 210, margin = 16, usable = W - margin * 2;
   const cfg = getConfig();
 
+  // Supprimer les emojis (jsPDF ne les supporte pas)
+  const stripEmoji = str => (str || '').replace(/[\u{1F300}-\u{1FFFF}]|[\u{2600}-\u{27FF}]|[\u{2300}-\u{23FF}]|[\u{2B00}-\u{2BFF}]|[\u{FE00}-\u{FEFF}]/gu, '').trim();
+
   // ── COULEURS CLAIRES ──────────────────────────────
   const BG        = [252, 252, 252];
   const INK       = [30,  30,  30 ];
@@ -2255,15 +2258,15 @@ function generatePDF() {
     // Déterminer le type et le nom
     let entryName = '', tagColor = TAG_A, tagInk = [40,80,0];
     if (entry.type === 'session') {
-      entryName = cfg[entry.session]?.name || ('SÉANCE ' + entry.session);
+      entryName = cfg[entry.session]?.name || ('SEANCE ' + entry.session);
       const si = (cfg.sessions||[]).indexOf(entry.session);
       tagColor = si===0?TAG_A:si===1?TAG_B:TAG_C;
       tagInk = si===0?[40,80,0]:si===1?[20,60,120]:[80,40,120];
     } else if (entry.type === 'cardio') {
-      entryName = entry.activityLabel || 'CARDIO';
+      entryName = stripEmoji(entry.activityLabel || 'CARDIO').toUpperCase();
       tagColor = TAG_CARDIO; tagInk = [120,70,0];
     } else if (entry.type === 'wod') {
-      entryName = entry.wodName || 'WOD';
+      entryName = stripEmoji(entry.wodName || 'WOD').toUpperCase();
       tagColor = TAG_WOD; tagInk = [140,30,30];
     }
 
@@ -2334,7 +2337,7 @@ function generatePDF() {
           checkY(5);
           doc.setFont('helvetica','italic');
           doc.setFontSize(7); doc.setTextColor(...MUTED);
-          const lines = doc.splitTextToSize('→ ' + comment, usable - 10);
+          const lines = doc.splitTextToSize('-> ' + stripEmoji(comment), usable - 10);
           doc.text(lines, margin + 6, pageY);
           pageY += lines.length * 4.5;
         }
@@ -2354,7 +2357,7 @@ function generatePDF() {
         checkY(5);
         doc.setFont('helvetica','italic');
         doc.setFontSize(7); doc.setTextColor(...MUTED);
-        const lines = doc.splitTextToSize('→ ' + entry.comment, usable - 6);
+        const lines = doc.splitTextToSize('-> ' + stripEmoji(entry.comment), usable - 6);
         doc.text(lines, margin + 3, pageY);
         pageY += lines.length * 4.5;
       }
@@ -2370,7 +2373,7 @@ function generatePDF() {
         checkY(5);
         doc.setFont('helvetica','italic');
         doc.setFontSize(7); doc.setTextColor(...MUTED);
-        const lines = doc.splitTextToSize('→ ' + entry.comment, usable - 6);
+        const lines = doc.splitTextToSize('-> ' + stripEmoji(entry.comment), usable - 6);
         doc.text(lines, margin + 3, pageY);
         pageY += lines.length * 4.5;
       }
